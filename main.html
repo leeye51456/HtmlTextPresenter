@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>HtmlTextPresenter</title>
+  <link rel="stylesheet" href="styleMain.css" type="text/css">
+  <script src="script.js" type="text/javascript"></script>
+</head>
+
+<body onload="mainWndResize();">
+
+<h1>
+  HtmlTextPresenter
+  <input type="text" class="constTextInput" value="1.0 beta1" disabled>
+  <div id="h1BtnContainer">
+    <input type="button" id="wndOnOffBtn" class="button" value="송출 창 띄우기/닫기" onclick="wndOnOff();" title="송출 창을 띄우고, 원하는 모니터로 옮긴 뒤, F11 키를 눌러 전체 화면으로 전환하세요.">
+    <input type="button" id="settingsBtn" class="button" value="세부 설정" onclick="settingsToggle();" title="이상이 없다면 기본 설정 그대로 두는 것을 권장합니다.">
+  </div>
+</h1>
+<div id="settings">
+  <ul>
+    <li>
+      <input type="button" class="button" value="적용" onclick="applySettings();">
+      <input type="button" class="button" value="취소" onclick="restoreSettings();">
+      <span id="isSettingChanged" title="변경된 설정을 아직 저장하지 않았습니다."></span>
+    </li>
+    <li>
+      <input type="checkbox" id="isDefaultAuto" onchange="settingChanged();">
+      <label for="isDefaultAuto" title="체크를 해제하면 CUT 효과가 기본 전환 효과로 지정됩니다.">AUTO(dissolve) 효과를 기본 전환 효과로 지정</label>
+    </li>
+    <li>
+      <label for="delayNum" title="전환 버튼 클릭 후 얼마 뒤에 실행할지를 정합니다.">딜레이(밀리초)</label>: 
+      <input type="number" id="delayNum" class="number" value="50" min="0" max="1000" step="10" onchange="settingChanged();">
+      <small>(0~1000)</small>
+    </li>
+    <li>
+      <label for="takeDurationNum" title="텍스트 전환에 걸리는 시간을 정합니다.">전환 시간(초)</label>: 
+      <input type="number" id="takeDurationNum" class="number" value="0.25" min="0" max="5" step="0.05" onchange="settingChanged();">
+      <small>(0~5)</small>
+    </li>
+  </ul>
+</div>
+
+<hr>
+
+<div id="switcherContainer">
+  <h2>
+    텍스트 스위처
+    <div id="transBtnContainer">
+      <label id="pageSelectLabel" onclick="selectPgSelNm();">PVW=</label><input type="number" id="pageSelectNum" class="number" value="0" min="0" max="0" step="1" onclick="selectPgSelNm();" onchange="updatePgSelNm();">
+      <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtTrans(0);">
+      <input type="button" id="txtAutoBtn" class="button" value="AUTO" onclick="txtTrans(takeDuration);">
+      <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();">
+    </div>
+  </h2>
+  <div id="pvw"><table class="pvwPgm"><tr><td id="pvwObj"></td></tr></table>Preview</div>
+  <div id="pgm"><table class="pvwPgm"><tr><td id="pgmObj"></td></tr></table>Program</div>
+</div>
+
+<datalist id="encodings">
+  <option value="euc-kr">
+  <option value="utf-8">
+  <option value="utf-16le">
+  <option value="utf-16be">
+</datalist>
+<div id="pageListContainer">
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>PVW</th>
+        <th>PGM</th>
+        <th class="tdLeft">
+          <input type="file" id="fileForm" accept=".txt" onchange="document.getElementById('fileLoadBtn').focus();" title="텍스트 파일만 불러올 수 있습니다.">
+          →
+          <input type="button" id="fileLoadBtn" class="button" value="불러오기" onclick="fileLoad();">
+          <input type="text" id="encodingTxt" list="encodings" value="" placeholder="인코딩" onchange="document.getElementById('fileLoadBtn').focus();" title="인코딩 직접 지정">
+        </th>
+      </tr>
+    </thead>
+    <tbody id="textFileContent">
+      <tr onclick="document.getElementById('fileForm').click();">
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="tdLeft">↑ 텍스트 파일을 선택하고 불러오세요.<br>텍스트 인코딩을 지정하지 않으면 euc-kr로 불러옵니다.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+
+</html>
