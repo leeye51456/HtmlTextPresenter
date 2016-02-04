@@ -157,17 +157,6 @@ blockquote {
   float: right;
 }
 
-#settings {
-  display: none;
-}
-#settings ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-#isDefaultAuto {
-  vertical-align: text-bottom;
-}
-
 #transBtnContainer {
   float: right;
   font-size: 1.5rem;
@@ -182,7 +171,7 @@ blockquote {
   font-size: 1.5rem;
   font-weight: bold;
 }
-#bgAutoBtn, #bgCutBtn, #bgClearBtn {
+#txtCutBtn, #txtClearBtn {
   margin: 0;
   padding: 0.5em 0.5em;
   vertical-align: top;

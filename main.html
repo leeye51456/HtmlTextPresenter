@@ -12,35 +12,11 @@
 
 <h1>
   HtmlTextPresenter
-  <input type="text" class="constTextInput" value="1.0 beta1" disabled>
+  <input type="text" class="constTextInput" value="1.0 beta2" disabled>
   <div id="h1BtnContainer">
     <input type="button" id="wndOnOffBtn" class="button" value="송출 창 띄우기/닫기" onclick="wndOnOff();" title="송출 창을 띄우고, 원하는 모니터로 옮긴 뒤, F11 키를 눌러 전체 화면으로 전환하세요.">
-    <input type="button" id="settingsBtn" class="button" value="세부 설정" onclick="settingsToggle();" title="이상이 없다면 기본 설정 그대로 두는 것을 권장합니다.">
   </div>
 </h1>
-<div id="settings">
-  <ul>
-    <li>
-      <input type="button" class="button" value="적용" onclick="applySettings();">
-      <input type="button" class="button" value="취소" onclick="restoreSettings();">
-      <span id="isSettingChanged" title="변경된 설정을 아직 저장하지 않았습니다."></span>
-    </li>
-    <li>
-      <input type="checkbox" id="isDefaultAuto" onchange="settingChanged();">
-      <label for="isDefaultAuto" title="체크를 해제하면 CUT 효과가 기본 전환 효과로 지정됩니다.">AUTO(dissolve) 효과를 기본 전환 효과로 지정</label>
-    </li>
-    <li>
-      <label for="delayNum" title="전환 버튼 클릭 후 얼마 뒤에 실행할지를 정합니다.">딜레이(밀리초)</label>: 
-      <input type="number" id="delayNum" class="number" value="50" min="0" max="1000" step="10" onchange="settingChanged();">
-      <small>(0~1000)</small>
-    </li>
-    <li>
-      <label for="takeDurationNum" title="텍스트 전환에 걸리는 시간을 정합니다.">전환 시간(초)</label>: 
-      <input type="number" id="takeDurationNum" class="number" value="0.25" min="0" max="5" step="0.05" onchange="settingChanged();">
-      <small>(0~5)</small>
-    </li>
-  </ul>
-</div>
 
 <hr>
 
@@ -49,8 +25,7 @@
     텍스트 스위처
     <div id="transBtnContainer">
       <label id="pageSelectLabel" onclick="selectPgSelNm();">PVW=</label><input type="number" id="pageSelectNum" class="number" value="0" min="0" max="0" step="1" onclick="selectPgSelNm();" onchange="updatePgSelNm();">
-      <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtTrans(0);">
-      <input type="button" id="txtAutoBtn" class="button" value="AUTO" onclick="txtTrans(takeDuration);">
+      <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtCut();">
       <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();">
     </div>
   </h2>
