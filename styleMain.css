@@ -79,7 +79,7 @@ code {
 }
 pre code {
   border: none;
-  background-color: none;
+  background-color: transparent;
   padding: 0;
 }
 pre {
@@ -94,10 +94,13 @@ table {
   margin: 0;
   width: 100%;
 }
-thead, tbody, tfoot {
+tbody {
   border-color: #e0e0e0;
   border-width: 2px;
-  border-style: solid none;
+  border-style: solid none none none;
+}
+thead, tfoot {
+  border: none;
 }
 tr:nth-child(odd) {
   background-color: #ffffff;
@@ -185,31 +188,32 @@ blockquote {
   text-align: center;
   margin: 0 10px 10px 0;
   padding: 0;
+  height: 144px;
+  min-height: 144px;
   max-height: 144px;
+  outline: #000000 solid 1px;
   overflow: hidden;
 }
 .pvwPgm {
   margin: 0;
+  height: 144px;
+  min-height: 144px;
   max-height: 144px;
-  border: 1px solid #000000;
   color: #ffffff;
-  overflow: hidden;
 }
 .pvwPgm tbody {
+  height: 144px;
+  min-height: 144px;
   max-height: 144px;
   border: none;
-  overflow: hidden;
 }
-#pvwObj, #pgmObj {
+.pvwPgmObj {
   margin: 0;
   padding: 7.2px 12.8px;
   width: 256px;
   max-width: 256px;
-  height: 144px;
-  max-height: 144px;
   border: 1px solid #000000;
   background-color: #000000;
-  transition: width 0.5s, font-size 0.5s;
   overflow: hidden;
   font-size: 14.4px;
   line-height: 1.4;
@@ -233,11 +237,170 @@ blockquote {
   clear: both;
   max-height: 400px;
   overflow-y: scroll;
-}
-.tdLeft {
-  text-align: left;
-  width: auto;
+  outline: #e0e0e0 solid 2px;
 }
 .pageNum {
   text-align: right;
+}
+.pageListCell {
+  text-align: left;
+  width: auto;
+}
+
+/************************************************/
+
+.pvwPgmObj h1 {
+  font-size: 1.5em;
+  color: #ffffff;
+  border: none;
+  margin: 0;
+}
+.pvwPgmObj h2 {
+  font-size: 1.4em;
+  color: #ffffff;
+  border: none;
+  margin: 0;
+}
+.pvwPgmObj h3 {
+  font-size: 1.3em;
+  color: #ffffff;
+  border: none;
+  margin: 0;
+}
+.pvwPgmObj h4 {
+  font-size: 1.2em;
+  color: #ffffff;
+  border: none;
+  margin: 0;
+}
+.pvwPgmObj h5 {
+  font-size: 1.1em;
+  color: #ffffff;
+  border: none;
+  margin: 0;
+}
+.pvwPgmObj h6 {
+  font-size: 1.0em;
+  color: #ffffff;
+  border: none;
+  margin: 0;
+}
+
+.pvwPgmObj p {
+  margin: 0;
+}
+
+.pvwPgmObj a {
+  color: #ffffff;
+}
+.pvwPgmObj a::after {
+  content: none;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.pvwPgmObj a:hover, .pvwPgmObj a:active, .pvwPgmObj a:hover::after, .pvwPgmObj a:active::after {
+  background-color: transparent;
+  border: none;
+}
+
+.pvwPgmObj code {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+.pvwPgmObj pre {
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.pvwPgmObj table {
+  display: none;
+}
+
+.pvwPgmObj blockquote {
+  display: none;
+}
+
+/************************************************/
+
+.pageListCell h1 {
+  font-size: 1.5em;
+  color: #000000;
+  border: none;
+  margin: 0;
+}
+.pageListCell h2 {
+  font-size: 1.4em;
+  color: #000000;
+  border: none;
+  margin: 0;
+}
+.pageListCell h3 {
+  font-size: 1.3em;
+  color: #000000;
+  border: none;
+  margin: 0;
+}
+.pageListCell h4 {
+  font-size: 1.2em;
+  color: #000000;
+  border: none;
+  margin: 0;
+}
+.pageListCell h5 {
+  font-size: 1.1em;
+  color: #000000;
+  border: none;
+  margin: 0;
+}
+.pageListCell h6 {
+  font-size: 1.0em;
+  color: #000000;
+  border: none;
+  margin: 0;
+}
+
+.pageListCell p {
+  margin: 0;
+}
+
+.pageListCell a {
+  color: #000000;
+}
+.pageListCell a::after {
+  content: none;
+  background-color: transparent;
+  border: none;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+.pageListCell a:hover, .pageListCell a:active, .pageListCell a:hover::after, .pageListCell a:active::after {
+  background-color: transparent;
+  border: none;
+}
+
+.pageListCell code {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+.pageListCell pre {
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.pageListCell table {
+  display: none;
+}
+
+.pageListCell blockquote {
+  display: none;
 }

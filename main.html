@@ -12,7 +12,7 @@
 
 <h1>
   HtmlTextPresenter
-  <input type="text" class="constTextInput" value="1.0.2-beta1" disabled>
+  <input type="text" class="constTextInput" value="1.1.0-beta1" disabled>
   <div id="h1BtnContainer">
     <input type="button" id="wndOnOffBtn" class="button" value="송출 창 띄우기/닫기" onclick="wndOnOff();" title="송출 창을 띄우고, 원하는 모니터로 옮긴 뒤, F11 키를 눌러 전체 화면으로 전환하세요.">
   </div>
@@ -29,8 +29,8 @@
       <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();">
     </div>
   </h2>
-  <div id="pvw"><table class="pvwPgm"><tr><td id="pvwObj"></td></tr></table>Preview</div>
-  <div id="pgm"><table class="pvwPgm"><tr><td id="pgmObj"></td></tr></table>Program</div>
+  <div id="pvw"><table class="pvwPgm"><tr><td id="pvwObj" class="pvwPgmObj"></td></tr></table></div>
+  <div id="pgm"><table class="pvwPgm"><tr><td id="pgmObj" class="pvwPgmObj"></td></tr></table></div>
 </div>
 
 <datalist id="encodings">
@@ -46,7 +46,7 @@
         <th>No</th>
         <th>PVW</th>
         <th>PGM</th>
-        <th class="tdLeft">
+        <th class="pageListCell">
           <input type="file" id="fileForm" accept=".txt" onchange="document.getElementById('fileLoadBtn').focus();" title="텍스트 파일만 불러올 수 있습니다.">
           →
           <input type="button" id="fileLoadBtn" class="button" value="불러오기" onclick="fileLoad();">
@@ -59,7 +59,7 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td class="tdLeft">↑ 텍스트 파일을 선택하고 불러오세요.<br>텍스트 인코딩을 지정하지 않으면 euc-kr로 불러옵니다.</td>
+        <td class="pageListCell">↑ 텍스트 파일을 선택하고 불러오세요.<br>텍스트 인코딩을 지정하지 않으면 euc-kr로 불러옵니다.</td>
       </tr>
     </tbody>
   </table>

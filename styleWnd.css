@@ -1,0 +1,92 @@
+* {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕, sans-serif;
+  word-break: keep-all;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+body {
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+/************************************************/
+
+h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+h2 {
+  font-size: 1.4em;
+  margin: 0;
+}
+h3 {
+  font-size: 1.3em;
+  margin: 0;
+}
+h4 {
+  font-size: 1.2em;
+  margin: 0;
+}
+h5 {
+  font-size: 1.1em;
+  margin: 0;
+}
+h6 {
+  font-size: 1.0em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+code {
+  padding: 0;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+}
+pre {
+  margin: 0;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+}
+
+table {
+  display: none;
+}
+
+blockquote {
+  display: none;
+}
+
+/************************************************/
+
+#mainTable {
+  display: table;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-align: center;
+  border-collapse:collapse;
+}
+
+#txtOut {
+  background-color: #000000;
+  color: #ffffff;
+  vertical-align: middle;
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: 5vh 5vw;
+  font-size: 10vh;
+  line-height: 1.4;
+}

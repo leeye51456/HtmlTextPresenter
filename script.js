@@ -32,45 +32,11 @@ function wndInit() {
 <html>\n\
 <head>\n\
 <meta charset=\"utf-8\">\n\
+<link rel="stylesheet" type="text/css" href="styleWnd.css">\n\
 <title>송출.HtmlPresenter</title>\n\
-<style>\n\
-* {\n\
-  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕, sans-serif;\n\
-  word-break: keep-all;\n\
-  word-wrap: break-word;\n\
-  overflow: hidden;\n\
-}\n\
-body {\n\
-  background-color: #000000;\n\
-  margin: 0;\n\
-  padding: 0;\n\
-}\n\
-table {\n\
-  position: absolute;\n\
-  left: 0;\n\
-  top: 0;\n\
-  width: 100vw;\n\
-  height: 100vh;\n\
-  margin: 0;\n\
-  padding: 0;\n\
-  border: none;\n\
-  text-align: center;\n\
-  border-collapse:collapse;\n\
-}\n\
-#txtOut {\n\
-  background-color: #000000;\n\
-  color: #ffffff;\n\
-  vertical-align: middle;\n\
-  max-width: 90vw;\n\
-  max-height: 90vh;\n\
-  padding: 5vh 5vw;\n\
-  font-size: 10vh;\n\
-  line-height: 1.4;\n\
-}\n\
-</style>\n\
 </head>\n\
 <body>\n\
-<table><tr><td id=\"txtOut\"></td></tr></table>\n\
+<table id=\"mainTable\"><tr><td id=\"txtOut\"></td></tr></table>\n\
 </body>\n\
 </html>');
   } catch (err) {
@@ -184,7 +150,7 @@ function displayTextFile() {
 <td class="pageNum">0</td>\
 <td><input type="radio" id="pvwRadio0" name="pvwRadio" checked></td>\
 <td><input type="radio" id="pgmRadio0" name="pgmRadio" disabled></td>\
-<td class="tdLeft" style="color: #a0a0a0">' + (document.getElementById('fileForm').files[0].name) + '</td>\
+<td class="pageListCell" style="color: #a0a0a0">' + (document.getElementById('fileForm').files[0].name) + '</td>\
 </tr>';
   if (textArray.length > 0) {
     for (i = 0; i < textArray.length; i++) {
@@ -192,14 +158,14 @@ function displayTextFile() {
 <td class="pageNum">' + (i + 1) + '</td>\
 <td><input type="radio" id="pvwRadio' + (i + 1) + '" name="pvwRadio"></td>\
 <td><input type="radio" id="pgmRadio' + (i + 1) + '" name="pgmRadio" disabled></td>\
-<td class="tdLeft">' + textArray[i] + '</td></tr>';
+<td class="pageListCell">' + textArray[i] + '</td></tr>';
     }
   }
   text += '<tr onclick="txtPvwChanged(' + (i + 1) + ');">\
 <td class="pageNum">' + (i + 1) + '</td>\
 <td><input type="radio" id="pvwRadio' + (i + 1) + '" name="pvwRadio"></td>\
 <td><input type="radio" id="pgmRadio' + (i + 1) + '" name="pgmRadio" disabled></td>\
-<td class="tdLeft">&nbsp;</td></tr>';
+<td class="pageListCell">&nbsp;</td></tr>';
   document.getElementById('textFileContent').innerHTML = text;
 }
 
@@ -207,7 +173,7 @@ function readTextFile(e) {
   var contents = e.target.result.replace(/^\s+/, '').replace(/\s+$/, '').replace(/\r\n/g, '\n').replace(/\n/g, '<br class="brFromNl">');
   textArray = contents.split('<br class="brFromNl"><br class="brFromNl">');
   for (i = 0; i < textArray.length; i++) {
-    textArray[i] = textArray[i].replace(/^(<br class="brFromNl">)+/, '').replace(/(<br class="brFromNl">)+$/, '');
+    textArray[i] = textArray[i].replace(/^(<br class="brFromNl">)+/, '').replace(/(<br class="brFromNl">)+$/, '').replace(/<br class="brFromNl">/g, '<br>');
   }
   document.getElementById('pageSelectNum').max = textArray.length + 1;
   displayTextFile();
