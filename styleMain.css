@@ -135,17 +135,17 @@ blockquote {
   padding: 3px 15px;
 }
 .buttonStep {
-  font-family: D2Coding, 나눔고딕코딩, monospace;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
   padding: 3px 7px;
 }
 .number {
-  font-family: D2Coding, 나눔고딕코딩, monospace;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
   padding: 3px 3px;
   text-align: right;
   min-width: 3em;
 }
 .constTextInput {
-  font-family: D2Coding, 나눔고딕코딩, monospace;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
   padding-left: 0.5em;
   border: none;
   background: none;
@@ -219,7 +219,7 @@ blockquote {
 #encodingTxt {
   padding: 3px;
   width: 5.5em;
-  font-family: D2Coding, 나눔고딕코딩, monospace;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
 }
 
 #pageListContainer {

@@ -200,6 +200,9 @@ function displayTextFile() {
 function readTextFile(e) {
   var contents = e.target.result.replace(/^\s+/, '').replace(/\s+$/, '').replace(/\r\n/g, '<br>');
   textArray = contents.split('<br><br>');
+  for (i = 0; i < textArray.length; i++) {
+    textArray[i] = textArray[i].replace(/^(<br>)+/, '').replace(/(<br>)+$/, '');
+  }
   document.getElementById('pageSelectNum').max = textArray.length + 1;
   displayTextFile();
   if (wnd && !wnd.closed) {
