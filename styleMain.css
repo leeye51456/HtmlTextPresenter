@@ -185,15 +185,18 @@ blockquote {
   text-align: center;
   margin: 0 10px 10px 0;
   padding: 0;
+  max-height: 144px;
   overflow: hidden;
 }
 .pvwPgm {
   margin: 0;
+  max-height: 144px;
   border: 1px solid #000000;
   color: #ffffff;
   overflow: hidden;
 }
 .pvwPgm tbody {
+  max-height: 144px;
   border: none;
   overflow: hidden;
 }
@@ -201,7 +204,9 @@ blockquote {
   margin: 0;
   padding: 7.2px 12.8px;
   width: 256px;
+  max-width: 256px;
   height: 144px;
+  max-height: 144px;
   border: 1px solid #000000;
   background-color: #000000;
   transition: width 0.5s, font-size 0.5s;
@@ -209,6 +214,8 @@ blockquote {
   font-size: 14.4px;
   line-height: 1.4;
   word-break: keep-all;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 #fileForm {

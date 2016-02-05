@@ -36,6 +36,9 @@ function wndInit() {
 <style>\n\
 * {\n\
   font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕, sans-serif;\n\
+  word-break: keep-all;\n\
+  word-wrap: break-word;\n\
+  overflow: hidden;\n\
 }\n\
 body {\n\
   background-color: #000000;\n\
@@ -46,8 +49,8 @@ table {\n\
   position: absolute;\n\
   left: 0;\n\
   top: 0;\n\
-  width: 100%;\n\
-  height: 100%;\n\
+  width: 100vw;\n\
+  height: 100vh;\n\
   margin: 0;\n\
   padding: 0;\n\
   border: none;\n\
@@ -58,10 +61,11 @@ table {\n\
   background-color: #000000;\n\
   color: #ffffff;\n\
   vertical-align: middle;\n\
+  max-width: 90vw;\n\
+  max-height: 90vh;\n\
   padding: 5vh 5vw;\n\
   font-size: 10vh;\n\
   line-height: 1.4;\n\
-  word-break: keep-all;\n\
 }\n\
 </style>\n\
 </head>\n\
@@ -79,7 +83,9 @@ table {\n\
   }
   wnd.onresize = function() {
     var w = wnd.innerWidth / wnd.innerHeight * 144;
+    document.getElementById('pvwObj').style.maxWidth = '' + w + 'px';
     document.getElementById('pvwObj').style.width = '' + w + 'px';
+    document.getElementById('pgmObj').style.maxWidth = '' + w + 'px';
     document.getElementById('pgmObj').style.width = '' + w + 'px';
     document.getElementById('pvwObj').style.padding = '7.2px ' + (w * 0.05) + 'px';
     document.getElementById('pgmObj').style.padding = '7.2px ' + (w * 0.05) + 'px';
@@ -134,7 +140,7 @@ function updatePgSelNm() {
   txtNo.value = Math.floor(Number(txtNo.value));
   txtNo.select();
   try {
-    document.getElementById('pvwRadio' + (txtNo.value)).checked = true;
+    document.getElementById('pvwRadio' + (txtNo.value)).click();
   } catch (typeError) {
   }
   txtPvwChanged();
@@ -198,10 +204,10 @@ function displayTextFile() {
 }
 
 function readTextFile(e) {
-  var contents = e.target.result.replace(/^\s+/, '').replace(/\s+$/, '').replace(/\r\n/g, '<br>');
-  textArray = contents.split('<br><br>');
+  var contents = e.target.result.replace(/^\s+/, '').replace(/\s+$/, '').replace(/\r\n/g, '\n').replace(/\n/g, '<br class="brFromNl">');
+  textArray = contents.split('<br class="brFromNl"><br class="brFromNl">');
   for (i = 0; i < textArray.length; i++) {
-    textArray[i] = textArray[i].replace(/^(<br>)+/, '').replace(/(<br>)+$/, '');
+    textArray[i] = textArray[i].replace(/^(<br class="brFromNl">)+/, '').replace(/(<br class="brFromNl">)+$/, '');
   }
   document.getElementById('pageSelectNum').max = textArray.length + 1;
   displayTextFile();
