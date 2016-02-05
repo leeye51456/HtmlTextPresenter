@@ -32,8 +32,8 @@ function wndInit() {
 <html>\n\
 <head>\n\
 <meta charset=\"utf-8\">\n\
-<link rel="stylesheet" type="text/css" href="styleWnd.css">\n\
-<title>송출.HtmlPresenter</title>\n\
+<link rel=\"stylesheet\" type=\"text/css\" href=\"styleWnd.css\">\n\
+<title>송출.HtmlTextPresenter</title>\n\
 </head>\n\
 <body>\n\
 <table id=\"mainTable\"><tr><td id=\"txtOut\"></td></tr></table>\n\
