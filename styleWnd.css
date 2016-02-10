@@ -68,6 +68,15 @@ blockquote {
   display: none;
 }
 
+input {
+  display: none;
+}
+
+img {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
 /************************************************/
 
 #mainTable {

@@ -132,6 +132,10 @@ blockquote {
   background-color: #f4f4f4;
 }
 
+img {
+  max-height: 144px;
+}
+
 /************************************************/
 
 .button {
@@ -162,22 +166,32 @@ blockquote {
 
 #transBtnContainer {
   float: right;
+  font-size: 1rem;
+  font-weight: normal;
+}
+#txtPvwDisplayTxt {
+  padding: 3px 0 3px 3px;
+  width: 3.5rem;
+  background-color: transparent;
+  border: none;
+  color: #000000;
+  text-align: right;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
   font-size: 1.5rem;
 }
-#pageSelectLabel {
-  margin: 0;
-  font-size: 1.5rem;
-}
-#pageSelectNum {
-  margin: 0;
-  width: 80px;
-  font-size: 1.5rem;
-  font-weight: bold;
+#txtPvwEndTxt {
+  padding: 3px 3px 3px 0;
+  width: 3rem;
+  background-color: transparent;
+  border: none;
+  color: #000000;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  font-size: 1rem;
 }
 #txtCutBtn, #txtClearBtn {
+  vertical-align: bottom;
   margin: 0;
   padding: 0.5em 0.5em;
-  vertical-align: top;
   width: 80px;
   font-size: 1rem;
   font-weight: bold;
@@ -186,7 +200,7 @@ blockquote {
 #pvw, #pgm {
   float: left;
   text-align: center;
-  margin: 0 10px 10px 0;
+  margin: 0 10px 0 0;
   padding: 0;
   height: 144px;
   min-height: 144px;
@@ -210,9 +224,8 @@ blockquote {
 .pvwPgmObj {
   margin: 0;
   padding: 7.2px 12.8px;
-  width: 256px;
-  max-width: 256px;
-  border: 1px solid #000000;
+  width: 230.4px;
+  max-width: 230.4px;
   background-color: #000000;
   overflow: hidden;
   font-size: 14.4px;
@@ -220,6 +233,15 @@ blockquote {
   word-break: keep-all;
   word-wrap: break-word;
   overflow: hidden;
+}
+#pvwPageNum, #pgmPageNum {
+  float: left;
+  margin: 0 10px 5px 0;
+  width: 256px;
+  color: #000000;
+  text-align: left;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  font-weight: bold;
 }
 
 #fileForm {
