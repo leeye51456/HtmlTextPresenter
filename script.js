@@ -77,6 +77,11 @@ function getTxtNo() {
   return -1;
 }
 
+function documentKeyDown(e) {
+  if (e.keyCode == 116 || (e.ctrlKey && e.keyCode == 82)) {
+    return false;
+  }
+}
 function documentKeyPress(e) {
   if (document.activeElement.id == 'encodingTxt') {
     if (e.keyCode == 13) {
@@ -140,6 +145,7 @@ function documentKeyPress(e) {
 
 function bodyLoad() {
   mainWndResize();
+  document.onkeydown = documentKeyDown;
   document.onkeypress = documentKeyPress;
 }
 

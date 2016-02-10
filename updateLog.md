@@ -13,6 +13,7 @@
   - `!doctype`, `a`, `audio`, `body`, `br`, `button`, `canvas`, `details`, `dialog`, `embed`, `fieldset`, `form`, `head`, `html`, `iframe`, `input`, `keygen`, `link`, `meta`, `object`, `output`, `script`, `select`, `style`, `textarea`, `title`, `video`
 - 텍스트 파일을 선택하면 바로 불러오도록 수정했습니다.
 - 페이지 리스트 더블클릭으로 해당 페이지를 바로 내보낼 수 있습니다.
+- `F5` 또는 `Ctrl+R`로 페이지가 다시 로드되지 않도록 막았습니다.
 
 ## 1.1
 
