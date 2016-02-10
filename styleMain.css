@@ -207,6 +207,7 @@ img {
   max-height: 144px;
   outline: #000000 solid 1px;
   overflow: hidden;
+  font-weight: bold;
 }
 .pvwPgm {
   margin: 0;
@@ -228,7 +229,7 @@ img {
   max-width: 230.4px;
   background-color: #000000;
   overflow: hidden;
-  font-size: 14.4px;
+  font-size: 12.6px;
   line-height: 1.4;
   word-break: keep-all;
   word-wrap: break-word;

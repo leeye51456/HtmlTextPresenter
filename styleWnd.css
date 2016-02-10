@@ -3,6 +3,7 @@
   word-break: keep-all;
   word-wrap: break-word;
   overflow: hidden;
+  font-weight: bold;
 }
 
 body {
@@ -100,6 +101,6 @@ img {
   max-width: 90vw;
   max-height: 90vh;
   padding: 5vh 5vw;
-  font-size: 10vh;
+  font-size: 8.75vh;
   line-height: 1.4;
 }
