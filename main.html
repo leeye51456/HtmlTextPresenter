@@ -11,8 +11,8 @@
 <body onload="bodyLoad();">
 
 <h1>
-  HtmlTextPresenter
-  <input type="text" class="constTextInput" value="2.0.1.160210" disabled>
+  H<small>tml</small>T<small>ext</small>P<small>resenter</small>
+  <input type="text" class="constTextInput" value="3.0-beta1" disabled>
   <div id="h1BtnContainer">
     <input type="button" id="wndOnOffBtn" class="button" value="송출 창 띄우기/닫기" onclick="wndOnOff();" onfocus="this.blur();" title="송출 창을 띄우고, 원하는 모니터로 옮긴 뒤, F11 키를 눌러 전체 화면으로 전환하세요.">
   </div>
@@ -21,16 +21,22 @@
 <hr>
 
 <div id="switcherContainer">
-  <h2>
-    송출
-    <div id="transBtnContainer">
-      <input type="checkbox" id="kbdCtrlModeChk" onchange="kbdCtrl.enabled = this.checked;" onfocus="this.blur();" checked><label for="kbdCtrlModeChk" class="chkboxLabel">키보드 송출</label>
-      <small>(<input type="checkbox" id="keyPadCtrlChk" onchange="kbdCtrl.useKeypad = this.checked;" onfocus="this.blur();" checked><label for="keyPadCtrlChk" class="chkboxLabel">키패드 사용</label>)</small>
-      <input type="text" id="txtPvwDisplayTxt" value="" disabled><input type="text" id="txtPvwEndTxt" value="/0" disabled>
-      <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtCut();" onfocus="this.blur();">
-      <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();" onfocus="this.blur();">
-    </div>
-  </h2>
+  <datalist id="encodings">
+    <option value="euc-kr">
+    <option value="utf-8">
+    <option value="utf-16le">
+    <option value="utf-16be">
+  </datalist>
+  <input type="file" id="fileForm" accept=".txt" onfocus="this.blur();" onchange="fileLoad(); this.blur();" title="텍스트 파일만 불러올 수 있습니다.">
+  <input type="text" id="encodingTxt" list="encodings" value="" placeholder="인코딩" onchange="this.blur();" title="인코딩 직접 지정">
+  <input type="button" id="fileLoadBtn" class="button" value="리스트 갱신" onclick="fileLoad(true);" onfocus="this.blur();">
+  <div id="transBtnContainer">
+    <input type="checkbox" id="kbdCtrlModeChk" onchange="kbdCtrl.enabled = this.checked;" onfocus="this.blur();" checked><label for="kbdCtrlModeChk" class="chkboxLabel">키보드 송출</label>
+    <small>(<input type="checkbox" id="keyPadCtrlChk" onchange="kbdCtrl.useKeypad = this.checked;" onfocus="this.blur();" checked><label for="keyPadCtrlChk" class="chkboxLabel">키패드 사용</label>)</small>
+    <input type="text" id="txtPvwDisplayTxt" value="" disabled><input type="text" id="txtPvwEndTxt" value="/0" disabled>
+    <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtCut();" onfocus="this.blur();">
+    <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();" onfocus="this.blur();">
+  </div>
   <div style="clear:both;">
     <div id="pvw"><table class="pvwPgm"><tr><td id="pvwObj" class="pvwPgmObj"></td></tr></table></div>
     <div id="pgm"><table class="pvwPgm"><tr><td id="pgmObj" class="pvwPgmObj"></td></tr></table></div>
@@ -41,36 +47,7 @@
   </div>
 </div>
 
-<datalist id="encodings">
-  <option value="euc-kr">
-  <option value="utf-8">
-  <option value="utf-16le">
-  <option value="utf-16be">
-</datalist>
-<div id="pageListContainer">
-  <table>
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>PVW</th>
-        <th>PGM</th>
-        <th class="pageListCell">
-          <input type="file" id="fileForm" accept=".txt" onfocus="this.blur();" onchange="fileLoad(); this.blur();" title="텍스트 파일만 불러올 수 있습니다.">
-          <input type="text" id="encodingTxt" list="encodings" value="" placeholder="인코딩" onchange="this.blur();" title="인코딩 직접 지정">
-          <input type="button" id="fileLoadBtn" class="button" value="리스트 갱신" onclick="fileLoad(true);" onfocus="this.blur();">
-        </th>
-      </tr>
-    </thead>
-    <tbody id="textFileContent">
-      <tr onclick="document.getElementById('fileForm').click();">
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td class="pageListCell">↑ 텍스트 파일을 선택하고 불러오세요.<br>텍스트 인코딩을 지정하지 않으면 euc-kr로 불러옵니다.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div id="pageListContainer"><label id="pageListContainerBeforeLoad" for="fileForm">텍스트 파일을 불러오세요.</label></div>
 
 </body>
 

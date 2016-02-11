@@ -7,26 +7,26 @@ html {
 }
 
 body {
-  width: 700px;
+  width: 1000px;
   margin: 0 auto;
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   color: #101010;
   border-bottom: 3px solid #e0e0e0;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 h2 {
-  font-size: 1.6em;
+  font-size: 1.4em;
   color: #202020;
   border-bottom: 3px solid #e8e8e8;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 h3 {
-  font-size: 1.4em;
+  font-size: 1.3em;
   color: #303030;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -153,7 +153,6 @@ img {
 }
 .constTextInput {
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-  padding-left: 0.5em;
   border: none;
   background: none;
   color: #000000;
@@ -164,34 +163,46 @@ img {
   float: right;
 }
 
+#fileForm {
+  padding: 1px;
+  width: 300px;
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+#encodingTxt {
+  padding: 3px;
+  width: 5.5em;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+}
 #transBtnContainer {
   float: right;
   font-size: 1rem;
   font-weight: normal;
 }
 #txtPvwDisplayTxt {
-  padding: 3px 0 3px 3px;
+  padding: 0 0 0 3px;
   width: 3.5rem;
   background-color: transparent;
   border: none;
   color: #000000;
   text-align: right;
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  font-family: Consolas, monospace;
   font-size: 1.5rem;
 }
 #txtPvwEndTxt {
-  padding: 3px 3px 3px 0;
+  padding: 0 3px 0 0;
   width: 3rem;
   background-color: transparent;
   border: none;
   color: #000000;
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  font-family: Consolas, monospace;
   font-size: 1rem;
+  vertical-align: text-bottom;
 }
 #txtCutBtn, #txtClearBtn {
   vertical-align: bottom;
   margin: 0;
-  padding: 0.5em 0.5em;
+  padding: 0.25em 0.25em;
   width: 80px;
   font-size: 1rem;
   font-weight: bold;
@@ -245,29 +256,75 @@ img {
   font-weight: bold;
 }
 
-#fileForm {
-  padding: 1px;
-  width: 250px;
-  background-color: #ffffff;
-}
-#encodingTxt {
-  padding: 3px;
-  width: 5.5em;
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-}
-
 #pageListContainer {
-  clear: both;
-  max-height: 400px;
+  display: flex;
+  width: 100%;
+  height: 320px;
+  background-color: #c0c0c0;
   overflow-y: scroll;
-  outline: #e0e0e0 solid 2px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 5px;
+  font-family: 나눔바른고딕OTF;
+  cursor: default;
 }
-.pageNum {
-  text-align: right;
+#pageListContainer *::selection {
+  background-color: rgba(0, 0, 0, 0);
+}
+#pageListContainer>#pageListContainerBeforeLoad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 3em;
 }
 .pageListCell {
-  text-align: left;
-  width: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #000000;
+  color: #ffffff;
+  margin: 3px 3px 8px 3px;
+  padding: 3px;
+  width: 150px;
+  min-height: 60px;
+  max-height: 60px;
+  overflow: hidden;
+  font-size: 12px;
+  outline: #808080 solid 3px;
+}
+.pageListCellContent {
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+.pageListCellContent * {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+.pageNum {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0 3px;
+  font-family: Consolas, monospace;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: right;
 }
 
 /************************************************/
@@ -351,79 +408,63 @@ img {
 
 /************************************************/
 
-.pageListCell h1 {
+.pageListCellContent h1 {
   font-size: 1.5em;
-  color: #000000;
+  color: #ffffff;
   border: none;
   margin: 0;
 }
-.pageListCell h2 {
+.pageListCellContent h2 {
   font-size: 1.4em;
-  color: #000000;
+  color: #ffffff;
   border: none;
   margin: 0;
 }
-.pageListCell h3 {
+.pageListCellContent h3 {
   font-size: 1.3em;
-  color: #000000;
+  color: #ffffff;
   border: none;
   margin: 0;
 }
-.pageListCell h4 {
+.pageListCellContent h4 {
   font-size: 1.2em;
-  color: #000000;
+  color: #ffffff;
   border: none;
   margin: 0;
 }
-.pageListCell h5 {
+.pageListCellContent h5 {
   font-size: 1.1em;
-  color: #000000;
+  color: #ffffff;
   border: none;
   margin: 0;
 }
-.pageListCell h6 {
+.pageListCellContent h6 {
   font-size: 1.0em;
-  color: #000000;
+  color: #ffffff;
   border: none;
   margin: 0;
 }
 
-.pageListCell p {
+.pageListCellContent p {
   margin: 0;
 }
 
-.pageListCell a {
-  color: #000000;
-}
-.pageListCell a::after {
-  content: none;
-  background-color: transparent;
-  border: none;
-  color: #000000;
-  margin: 0;
-  padding: 0;
-}
-.pageListCell a:hover, .pageListCell a:active, .pageListCell a:hover::after, .pageListCell a:active::after {
-  background-color: transparent;
-  border: none;
-}
-
-.pageListCell code {
+.pageListCellContent code {
   border: none;
   background-color: transparent;
   padding: 0;
 }
-.pageListCell pre {
+.pageListCellContent pre {
   border: none;
   background-color: transparent;
   margin: 0;
   padding: 0;
 }
 
-.pageListCell table {
+.pageListCellContent table {
   display: none;
 }
 
-.pageListCell blockquote {
+.pageListCellContent blockquote {
   display: none;
 }

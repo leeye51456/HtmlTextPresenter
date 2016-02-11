@@ -2,7 +2,7 @@ var wnd;
 var textArray = [];
 var textFileContent = '';
 
-var kbdCtrl = function() {
+var kbdCtrl = (function() {
   var numLog = '';
   var chkLog = function() {
     if (numLog.length > 4) {
@@ -10,7 +10,7 @@ var kbdCtrl = function() {
     }
     numLog = numLog.replace(/^0*(\d)/, '$1');
   };
-  var updatePvwNum = function() {
+  var updatePvwNumInput = function() {
     document.getElementById('txtPvwDisplayTxt').value = '' + numLog;
   };
   return {
@@ -20,12 +20,12 @@ var kbdCtrl = function() {
       if (typeof l == 'string') {
         numLog += l;
         chkLog();
-        updatePvwNum();
+        updatePvwNumInput();
         return l;
       } else if (typeof l == 'number') {
         numLog += String(l);
         chkLog();
-        updatePvwNum();
+        updatePvwNumInput();
         return String(l);
       }
       return '';
@@ -36,50 +36,90 @@ var kbdCtrl = function() {
     clearLog: function() {
       var numLogTemp = numLog;
       numLog = '';
-      updatePvwNum();
+      updatePvwNumInput();
       return numLogTemp;
     }
   };
-}();
+})();
+
+var pvw = (function() {
+  var pageNum = 0;
+  return {
+    getPageNum: function() {
+      return this.pageNum;
+    },
+    updatePage: function(page) {
+      var temp = Number(page);
+      if (temp < 1 || temp > textArray.length + 1) {
+        return;
+      }
+      this.pageNum = temp;
+      for (i = 1; i <= textArray.length + 1; i++) {
+        document.getElementById('pageListCell' + i).style.outline = '';
+      }
+      if (this.getPageNum()) {
+        document.getElementById('pageListCell' + this.pageNum).style.outline = '#00a000 solid 3px';
+        document.getElementById('pvwObj').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
+        document.getElementById('pvwPageNum').innerHTML = 'PVW ' + this.pageNum;
+      }
+      if (pgm.getPageNum()) {
+        document.getElementById('pageListCell' + pgm.pageNum).style.outline = '#ff0000 solid 3px';
+      }
+    }
+  };
+})();
+
+var pgm = (function() {
+  var pageNum = 0;
+  return {
+    getPageNum: function() {
+      return this.pageNum;
+    },
+    updatePage: function(page) {
+      var temp = Number(page);
+      if (temp < 0 || temp > textArray.length + 1) {
+        return;
+      }
+      this.pageNum = temp;
+      for (i = 1; i <= textArray.length + 1; i++) {
+        document.getElementById('pageListCell' + i).style.outline = '';
+      }
+      if (pvw.getPageNum()) {
+        document.getElementById('pageListCell' + pvw.pageNum).style.outline = '#00a000 solid 3px';
+      }
+      if (this.getPageNum()) {
+        document.getElementById('pageListCell' + this.pageNum).style.outline = '#ff0000 solid 3px';
+        document.getElementById('pgmObj').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
+        document.getElementById('pgmPageNum').innerHTML = 'PGM ' + this.pageNum;
+      } else {
+        document.getElementById('pgmObj').innerHTML = '';
+        document.getElementById('pgmPageNum').innerHTML = 'PGM';
+      }
+    }
+  };
+})();
 
 
 function mainWndResize() {
-  var h = 100;
+  var h = 100; // 레이아웃 완성 후 숫자 수정할 것!
   h += document.getElementsByTagName('h1')[0].offsetHeight;
-  h += document.getElementsByTagName('h2')[0].offsetHeight;
-  h += document.getElementById('pvw').offsetHeight;
-  document.getElementById('pageListContainer').style.maxHeight = '' + (window.innerHeight - h) + 'px';
+  h += document.getElementById('switcherContainer').offsetHeight;
+  document.getElementById('pageListContainer').style.height = '' + (window.innerHeight - h) + 'px';
 }
 window.onresize = mainWndResize;
-
-function txtPvwChanged(pageNum) {
-  if (pageNum < 0 || pageNum > textArray.length + 1) {
-    return;
-  }
-  var pvwRad = document.getElementById('pvwRadio' + (pageNum));
-  if (pvwRad) {
-    pvwRad.click();
-    document.getElementById('pvwObj').innerHTML = textArray[pageNum - 1] ? textArray[pageNum - 1] : '&nbsp;';
-    document.getElementById('pvwPageNum').innerHTML = 'PVW ' + pageNum;
-  }
-}
-
-function getTxtNo() {
-  try {
-    for (i = textArray.length + 1; i >= 0; i--) {
-      if (document.getElementById('pvwRadio' + i).checked) {
-        return i;
-      }
-    }
-    alert('아무 것도 선택하지 않았습니다.');
-  } catch (TypeError) {
-  }
-  return -1;
-}
+window.onbeforeunload = function() {
+  return '새로 고침 동작을 하거나 이 페이지에서 나올 경우 스위처와 통신 창이 서로 통신할 수 없는 상태가 되어, 이후에 다른 페이지를 송출하려면 송출 창을 다시 띄워야 합니다.';
+};
 
 function documentKeyDown(e) {
-  if (e.keyCode == 116 || (e.ctrlKey && e.keyCode == 82)) {
+  if (e.keyCode == 116) {
     return false;
+  }
+  if (e.ctrlKey) {
+    switch (e.keyCode) {
+      case 65: case 68: case 69: case 70: case 71: case 72: case 74: case 75: case 76: case 78: case 79: case 80: case 82: case 83: case 84: case 85: case 87:
+        return false;
+    }
   }
 }
 function documentKeyPress(e) {
@@ -96,23 +136,23 @@ function documentKeyPress(e) {
     if (kbdCtrl.useKeypad && e.location == 3) {
       if (e.keyCode == 13) { // enter
         if (kbdCtrl.getLog()) {
-          txtPvwChanged(kbdCtrl.clearLog());
+          pvw.updatePage(kbdCtrl.clearLog());
         } else {
           txtCut();
         }
       } else if (e.keyCode >= 48 && e.keyCode <= 57) { // 0-9
         kbdCtrl.addLog(e.keyCode - 48);
       } else if (e.keyCode == 43) { // +
-        txtPvwChanged(getTxtNo() + 1);
+        pvw.updatePage(pvw.getPageNum() + 1);
       } else if (e.keyCode == 45) { // -
-        txtPvwChanged(getTxtNo() - 1);
+        pvw.updatePage(pvw.getPageNum() - 1);
       } else if (e.keyCode == 46) { // .
         txtClear();
       }
     } else if (!kbdCtrl.useKeypad && e.location != 3) {
       if (e.keyCode == 13) { // enter
         if (kbdCtrl.getLog()) {
-          txtPvwChanged(kbdCtrl.clearLog());
+          pvw.updatePage(kbdCtrl.clearLog());
         } else {
           txtCut();
         }
@@ -133,9 +173,9 @@ function documentKeyPress(e) {
       } else if (e.keyCode >= 55 && e.keyCode <= 57) { // 7-9
         kbdCtrl.addLog(e.keyCode - 48);
       } else if (e.keyCode == 91) { // [
-        txtPvwChanged(getTxtNo() + 1);
+        pvw.updatePage(pvw.getPageNum() + 1);
       } else if (e.keyCode == 93) { // ]
-        txtPvwChanged(getTxtNo() - 1);
+        pvw.updatePage(pvw.getPageNum() - 1);
       } else if (e.keyCode == 46) { // .
         txtClear();
       }
@@ -153,38 +193,31 @@ function bodyLoad() {
 function txtCut() {
   if (!wnd || wnd.closed) {
     alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
+    return;
+  }
+  var txtNo = pvw.getPageNum() - 1;
+  if (txtNo < -1) {
+    return;
+  }
+  var txtOut = wnd.document.getElementById('txtOut');
+  if (txtNo == -1 || txtNo == textArray.length) {
+    txtOut.innerHTML = '';
   } else {
-    var txtNo = getTxtNo() - 1;
-    if (txtNo < -1) {
-      return;
-    }
-    var txtOut = wnd.document.getElementById('txtOut');
-    if (txtNo == -1 || txtNo == textArray.length) {
-      txtOut.innerHTML = '';
-    } else {
-      txtOut.innerHTML = textArray[txtNo];
-    }
-    document.getElementById('pgmObj').innerHTML = textArray[txtNo] ? textArray[txtNo] : '';
-    document.getElementById('pgmRadio' + (txtNo + 1)).checked = true;
-    document.getElementById('pgmPageNum').innerHTML = 'PGM ' + (txtNo + 1);
-    try {
-      txtPvwChanged(txtNo + 2);
-    } catch (TypeError) {
-    }
+    txtOut.innerHTML = textArray[txtNo];
+  }
+  pgm.updatePage(txtNo + 1);
+  try {
+    pvw.updatePage(txtNo + 2);
+  } catch (TypeError) {
   }
 }
 
 function txtClear() {
   if (!wnd || wnd.closed) {
     alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
-  } else {
-    wnd.document.getElementById('txtOut').innerHTML = '';
-    document.getElementById('pgmObj').innerHTML = '';
-    document.getElementById('pgmPageNum').innerHTML = 'PGM ';
-    for (i = 0; i <= textArray.length + 1; i++) {
-      document.getElementById('pgmRadio' + i).checked = false;
-    }
+    return;
   }
+  pgm.updatePage(0);
 }
 
 function cannotControlWnd() {
@@ -197,10 +230,6 @@ function cannotControlWnd() {
 function wndInit() {
   txtPgm = 0;
   wnd = window.open('', 'wnd', 'scrollbar=no');
-  if (document.getElementById('pvwRadio0')) {
-    document.getElementById('pvwRadio0').click();
-    document.getElementById('pgmRadio0').checked = true;
-  }
   try {
     wnd.document.write('\
 <!doctype html>\n\
@@ -223,7 +252,7 @@ function wndInit() {
     }
   }
   txtClear();
-  txtPvwChanged(0);
+  pvw.updatePage(1);
   wnd.onresize = function() {
     var w = wnd.innerWidth / wnd.innerHeight * 144;
     var p = w * 0.05;
@@ -239,6 +268,9 @@ function wndInit() {
     document.getElementById('pgmObj').style.padding = p;
     document.getElementById('pgmPageNum').style.width = w;
   };
+  wnd.onunload = function() {
+    pgm.updatePage(0);
+  };
 }
 
 function wndOnOff() {
@@ -249,34 +281,19 @@ function wndOnOff() {
   }
 }
 
-function blurElement() {
-  this.blur();
-}
 function displayTextFile() {
-  var text = '<tr onclick="txtPvwChanged(0);" ondblclick="txtCut();">\
-<td class="pageNum">0</td>\
-<td><input type="radio" id="pvwRadio0" name="pvwRadio" checked></td>\
-<td><input type="radio" id="pgmRadio0" name="pgmRadio" checked disabled></td>\
-<td class="pageListCell" style="color: #a0a0a0">' + (document.getElementById('fileForm').files[0].name) + '</td>\
-</tr>';
+  var text = '';
   if (textArray.length > 0) {
     for (i = 0; i < textArray.length; i++) {
-      text += '<tr onclick="txtPvwChanged(' + (i + 1) + ');" ondblclick="txtCut();">\
-<td class="pageNum">' + (i + 1) + '</td>\
-<td><input type="radio" id="pvwRadio' + (i + 1) + '" name="pvwRadio"></td>\
-<td><input type="radio" id="pgmRadio' + (i + 1) + '" name="pgmRadio" disabled></td>\
-<td class="pageListCell">' + textArray[i] + '</td></tr>';
+      text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">\
+<div class="pageListCellContent">' + textArray[i] + '</div>\
+<div class="pageNum">' + (i + 1) + '</div></div>';
     }
   }
-  text += '<tr onclick="txtPvwChanged(' + (i + 1) + ');" ondblclick="txtCut();">\
-<td class="pageNum">' + (i + 1) + '</td>\
-<td><input type="radio" id="pvwRadio' + (i + 1) + '" name="pvwRadio"></td>\
-<td><input type="radio" id="pgmRadio' + (i + 1) + '" name="pgmRadio" disabled></td>\
-<td class="pageListCell">&nbsp;</td></tr>';
-  document.getElementById('textFileContent').innerHTML = text;
-  for (i = 0; i <= textArray.length + 1; i++) {
-    document.getElementById('pvwRadio' + i).onfocus = blurElement;
-  }
+  text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">\
+<div class="pageListCellContent"></div>\
+<div class="pageNum">' + (i + 1) + '</div></div>';
+  document.getElementById('pageListContainer').innerHTML = text;
 }
 
 function readTextFile(e) {
@@ -296,8 +313,7 @@ function readTextFile(e) {
   document.getElementById('txtPvwEndTxt').value = '/' + (textArray.length + 1);
   displayTextFile();
   if (wnd && !wnd.closed) {
-    document.getElementById('pvwRadio0').click();
-    document.getElementById('pgmRadio0').checked = true;
+    pvw.updatePage(1);
   }
 }
 
