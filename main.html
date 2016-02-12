@@ -12,7 +12,7 @@
 
 <h1>
   H<small>tml</small>T<small>ext</small>P<small>resenter</small>
-  <input type="text" class="constTextInput" value="3.0-beta1" disabled>
+  <input type="text" class="constTextInput" value="3.0-beta2" disabled>
   <div id="h1BtnContainer">
     <input type="button" id="wndOnOffBtn" class="button" value="송출 창 띄우기/닫기" onclick="wndOnOff();" onfocus="this.blur();" title="송출 창을 띄우고, 원하는 모니터로 옮긴 뒤, F11 키를 눌러 전체 화면으로 전환하세요.">
   </div>
@@ -37,13 +37,10 @@
     <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtCut();" onfocus="this.blur();">
     <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();" onfocus="this.blur();">
   </div>
+  <!-- PVW/PGM flexible box로 수정 -->
   <div style="clear:both;">
-    <div id="pvw"><table class="pvwPgm"><tr><td id="pvwObj" class="pvwPgmObj"></td></tr></table></div>
-    <div id="pgm"><table class="pvwPgm"><tr><td id="pgmObj" class="pvwPgmObj"></td></tr></table></div>
-  </div>
-  <div style="clear:both;">
-    <div id="pvwPageNum">PVW</div>
-    <div id="pgmPageNum">PGM</div>
+    <div id="pvw"><div id="pvwObj" class="pvwPgmObj"></div><div class="pvwPgmIndicator">PVW</div><div id="pvwPageNum" class="pvwPgmPage"></div></div>
+    <div id="pgm"><div id="pgmObj" class="pvwPgmObj"></div><div class="pvwPgmIndicator">PGM</div><div id="pgmPageNum" class="pvwPgmPage"></div></div>
   </div>
 </div>
 

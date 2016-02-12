@@ -60,9 +60,9 @@ var pvw = (function() {
       if (this.getPageNum()) {
         document.getElementById('pageListCell' + this.pageNum).style.outline = '#00a000 solid 3px';
         document.getElementById('pvwObj').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
-        document.getElementById('pvwPageNum').innerHTML = 'PVW ' + this.pageNum;
+        document.getElementById('pvwPageNum').innerHTML = '' + this.pageNum;
       }
-      if (pgm.getPageNum()) {
+      if (pgm.getPageNum() && (pgm.getPageNum() + 1 == this.getPageNum() || pgm.getPageNum() == this.getPageNum())) {
         document.getElementById('pageListCell' + pgm.pageNum).style.outline = '#ff0000 solid 3px';
       }
     }
@@ -90,10 +90,10 @@ var pgm = (function() {
       if (this.getPageNum()) {
         document.getElementById('pageListCell' + this.pageNum).style.outline = '#ff0000 solid 3px';
         document.getElementById('pgmObj').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
-        document.getElementById('pgmPageNum').innerHTML = 'PGM ' + this.pageNum;
+        document.getElementById('pgmPageNum').innerHTML = '' + this.pageNum;
       } else {
         document.getElementById('pgmObj').innerHTML = '';
-        document.getElementById('pgmPageNum').innerHTML = 'PGM';
+        document.getElementById('pgmPageNum').innerHTML = '';
       }
     }
   };
@@ -101,7 +101,7 @@ var pgm = (function() {
 
 
 function mainWndResize() {
-  var h = 100; // 레이아웃 완성 후 숫자 수정할 것!
+  var h = 200;
   h += document.getElementsByTagName('h1')[0].offsetHeight;
   h += document.getElementById('switcherContainer').offsetHeight;
   document.getElementById('pageListContainer').style.height = '' + (window.innerHeight - h) + 'px';
@@ -217,6 +217,7 @@ function txtClear() {
     alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
     return;
   }
+  wnd.document.getElementById('txtOut').innerHTML = '';
   pgm.updatePage(0);
 }
 
@@ -253,21 +254,6 @@ function wndInit() {
   }
   txtClear();
   pvw.updatePage(1);
-  wnd.onresize = function() {
-    var w = wnd.innerWidth / wnd.innerHeight * 144;
-    var p = w * 0.05;
-    var wi = '' + (w - p * 2) + 'px';
-    w = '' + w + 'px';
-    p = '7.2px ' + p + 'px';
-    document.getElementById('pvwObj').style.maxWidth = wi;
-    document.getElementById('pvwObj').style.width = wi;
-    document.getElementById('pvwObj').style.padding = p;
-    document.getElementById('pvwPageNum').style.width = w;
-    document.getElementById('pgmObj').style.maxWidth = wi;
-    document.getElementById('pgmObj').style.width = wi;
-    document.getElementById('pgmObj').style.padding = p;
-    document.getElementById('pgmPageNum').style.width = w;
-  };
   wnd.onunload = function() {
     pgm.updatePage(0);
   };
@@ -331,6 +317,7 @@ function fileLoad(isReload) {
     if (!encoding) {
       encoding = 'euc-kr';
     }
+    document.getElementById('pgmPageNum').innerHTML = '';
     fr.onload = readTextFile;
     fr.readAsText(fileForm.files[0], encoding);
     return;
