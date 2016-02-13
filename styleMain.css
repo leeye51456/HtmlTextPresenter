@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 * {
   font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕, sans-serif;
 }
@@ -311,6 +313,9 @@ img {
   overflow: hidden;
   font-size: 12px;
   outline: #808080 solid 3px;
+}
+.pageListCell:hover {
+  background-color: #404000;
 }
 .pageListCellContent {
   width: 100%;
