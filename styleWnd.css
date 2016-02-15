@@ -85,33 +85,6 @@ img {
 
 /************************************************/
 
-/*
-#mainTable {
-  display: table;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  border: none;
-  text-align: center;
-  border-collapse:collapse;
-}
-
-#txtOut {
-  background-color: #000000;
-  color: #ffffff;
-  vertical-align: middle;
-  max-width: 90vw;
-  max-height: 90vh;
-  padding: 5vh 5vw;
-  font-size: 8.75vh;
-  line-height: 1.4;
-}
-*/
-
 #txtContainer {
   position: absolute;
   left: 0;

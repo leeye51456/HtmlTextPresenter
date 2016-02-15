@@ -66,7 +66,7 @@ var pvw = (function() {
         document.getElementById('pvwPageNum').innerHTML = '' + this.pageNum;
       }
       if (pgm.getPageNum()) {
-        document.getElementById('pageListCell' + pgm.pageNum).style.outline = '#ff4040 solid 4px';
+        document.getElementById('pageListCell' + pgm.getPageNum()).style.outline = '#ff4040 solid 4px';
       }
     }
   };
@@ -88,7 +88,7 @@ var pgm = (function() {
         document.getElementById('pageListCell' + i).style.outline = '';
       }
       if (pvw.getPageNum()) {
-        document.getElementById('pageListCell' + pvw.pageNum).style.outline = '#00a000 solid 4px';
+        document.getElementById('pageListCell' + pvw.getPageNum()).style.outline = '#00a000 solid 4px';
       }
       if (this.getPageNum()) {
         wnd.document.getElementById('txtOut').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
@@ -148,7 +148,7 @@ function documentKeyPress(e) {
   if (!wnd || wnd.closed) {
     return;
   }
-  if (kbdCtrl.enabled) {
+  if (textArray.length > 0 && kbdCtrl.enabled) {
     if (kbdCtrl.useKeypad && e.location == 3) {
       if (e.keyCode == 13) { // enter
         if (kbdCtrl.getLog()) {
@@ -231,7 +231,6 @@ function cannotControlWnd() {
 }
 
 function wndInit() {
-  txtPgm = 0;
   wnd = window.open('', 'wnd', 'scrollbar=no');
   try {
     wnd.document.write('\
@@ -254,8 +253,10 @@ function wndInit() {
       return;
     }
   }
-  txtClear();
-  pvw.updatePage(1);
+  if (textArray.length > 0) {
+    txtClear();
+    pvw.updatePage(1);
+  }
   wnd.onkeydown = documentKeyDown;
   wnd.onkeypress = documentKeyPress;
   wnd.onunload = function() {
@@ -267,7 +268,9 @@ function wndOnOff() {
   if (!wnd || wnd.closed) {
     wndInit();
   } else if (confirm('송출 창을 닫을까요?')) {
-    pgm.updatePage(0);
+    if (textArray.length > 0) {
+      pgm.updatePage(0);
+    }
     wnd.close();
   }
 }
@@ -313,6 +316,7 @@ function fileLoad(isReload) {
   if (fileForm.files.length != 1) {
     if (isReload) {
       alert('텍스트 파일을 다시 선택해 주세요.');
+      document.getElementById('fileForm').click();
     }
     return;
   }
