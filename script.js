@@ -8,7 +8,7 @@ var kbdCtrl = (function() {
     if (numLog.length > 4) {
       numLog = numLog.slice(-4);
     }
-    numLog = numLog.replace(/^0*(\d)/, '$1');
+    numLog = numLog.replace(/^0+(\d)/, '$1');
   };
   var updatePvwNumInput = function() {
     document.getElementById('txtPvwDisplayTxt').value = '' + numLog;
@@ -50,7 +50,7 @@ var pvw = (function() {
     },
     updatePage: function(page) {
       var temp = Number(page);
-      if (page == '0') {
+      if (page === '0') {
         this.updatePage(this.getPageNum() - 1);
         return;
       } else if (temp < 1 || temp > textArray.length + 1) {
@@ -91,11 +91,13 @@ var pgm = (function() {
         document.getElementById('pageListCell' + pvw.pageNum).style.outline = '#00a000 solid 4px';
       }
       if (this.getPageNum()) {
+        wnd.document.getElementById('txtOut').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
         document.getElementById('pageListCell' + this.pageNum).style.outline = '#ff4040 solid 4px';
         document.getElementById('pgmObj').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
-        document.getElementById('pgmPageNum').innerHTML = '' + this.pageNum;
+        document.getElementById('pgmPageNum').innerHTML = this.pageNum;
         document.getElementById('pgm').style.outline = '#ff4040 solid 5px';
       } else {
+        wnd.document.getElementById('txtOut').innerHTML = '';
         document.getElementById('pgmObj').innerHTML = '';
         document.getElementById('pgmPageNum').innerHTML = '';
         document.getElementById('pgm').style.outline = '';
@@ -117,8 +119,17 @@ window.onbeforeunload = function() {
 };
 
 function documentKeyDown(e) {
-  if (e.keyCode == 116) {
+  if (e.keyCode == 116) { // F5
     return false;
+  }
+  if (document.activeElement.id != 'encodingTxt') {
+    if (e.keyCode == 38) { // Up
+      document.getElementById('pageListContainer').scrollTop -= 89;
+      return false;
+    } else if (e.keyCode == 40) { // Down
+      document.getElementById('pageListContainer').scrollTop += 89;
+      return false;
+    }
   }
   if (e.ctrlKey) {
     switch (e.keyCode) {
@@ -200,22 +211,8 @@ function txtCut() {
     alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
     return;
   }
-  var txtNo = pvw.getPageNum() - 1;
-  if (txtNo < -1) {
-    return;
-  }
-  var txtOut = wnd.document.getElementById('txtOut');
-  if (txtNo == -1 || txtNo == textArray.length) {
-    txtOut.innerHTML = '';
-  } else {
-    txtOut.innerHTML = textArray[txtNo];
-  }
-  pgm.updatePage(txtNo + 1);
-  //document.getElementById('pgm').style.outline = '#ff4040 solid 5px';
-  try {
-    pvw.updatePage(txtNo + 2);
-  } catch (TypeError) {
-  }
+  pgm.updatePage(pvw.getPageNum());
+  pvw.updatePage(pvw.getPageNum() + 1);
 }
 
 function txtClear() {
@@ -223,9 +220,7 @@ function txtClear() {
     alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
     return;
   }
-  wnd.document.getElementById('txtOut').innerHTML = '';
   pgm.updatePage(0);
-  //document.getElementById('pgm').style.outline = '';
 }
 
 function cannotControlWnd() {
@@ -248,7 +243,7 @@ function wndInit() {
 <title>송출.HtmlTextPresenter</title>\n\
 </head>\n\
 <body>\n\
-<table id=\"mainTable\"><tr><td id=\"txtOut\"></td></tr></table>\n\
+<div id=\"txtContainer\"><div id=\"txtOut\"></div></div>\n\
 </body>\n\
 </html>');
   } catch (err) {
@@ -261,6 +256,8 @@ function wndInit() {
   }
   txtClear();
   pvw.updatePage(1);
+  wnd.onkeydown = documentKeyDown;
+  wnd.onkeypress = documentKeyPress;
   wnd.onunload = function() {
     pgm.updatePage(0);
   };
