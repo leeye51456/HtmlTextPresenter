@@ -295,7 +295,7 @@ function readTextFile(e) {
     .replace(/\r\n/g, '\n')
     .replace(/^\n+/g, '')
     .replace(/\n+$/g, '')
-    .replace(/&/g, '&amp;')
+    .replace(/&(?!(amp;|nbsp;|#\d+;|#x[0-9A-Fa-f]+;))/g, '&amp;')
     .replace(/<(\/?)(\!doctype|a|audio|body|br|button|canvas|details|dialog|embed|fieldset|form|head|html|iframe|input|keygen|link|meta|object|output|script|select|style|textarea|title|video)(.*?\s*?\/?\s*?)>/gi, '&lt;$1$2$3&gt;')
     .replace(/\n/g, '<br>');
   textArray = contents.split('<br><br>');
