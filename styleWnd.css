@@ -10,6 +10,9 @@
 *::selection {
   background-color: rgba(0, 0, 0, 0);
 }
+*::-moz-selection {
+  background-color: rgba(0, 0, 0, 0);
+}
 
 body {
   background-color: #000000;
@@ -20,26 +23,38 @@ body {
 /************************************************/
 
 h1 {
+  color: #ffff00;
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.5em;
   margin: 0;
 }
 h2 {
+  color: #ffff00;
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.4em;
   margin: 0;
 }
 h3 {
+  color: #ffff00;
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.3em;
   margin: 0;
 }
 h4 {
+  color: #ffff00;
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.2em;
   margin: 0;
 }
 h5 {
+  color: #ffff00;
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.1em;
   margin: 0;
 }
 h6 {
+  color: #ffff00;
+  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.0em;
   margin: 0;
 }
