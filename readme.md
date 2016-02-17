@@ -21,7 +21,7 @@
 
 - 아무 것도 입력하지 않은 상태에서 <kbd>Enter</kbd> 키를 누르면 PVW에 대기 중인 페이지가 PGM으로 넘어오면서 송출 창으로 송출됩니다.
 - 내보낸 텍스트를 지우려면 <kbd>.</kbd> 키를 누르세요.
-- 키패드의 <kbd>0</kbd>-</kbd>9</kbd> 키 또는 <kbd>M</kbd>, </kbd>J</kbd>, <kbd>K</kbd>, </kbd>L</kbd>, <kbd>U</kbd>, </kbd>I</kbd>, <kbd>O</kbd>, </kbd>7<kbd>, </kbd>8<kbd>, </kbd>9<kbd>(각각 키패드의 </kbd>0<kbd>-</kbd>9<kbd> 키에 대응) 키를 눌러 숫자를 입력하고 </kbd>Enter<kbd> 키를 누르면 해당 페이지가 PVW로 올라옵니다.
+- 키패드의 <kbd>0</kbd>-</kbd>9</kbd> 키 또는 <kbd>M</kbd>, <kbd>J</kbd>, <kbd>K</kbd>, <kbd>L</kbd>, <kbd>U</kbd>, <kbd>I</kbd>, <kbd>O</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd>(각각 키패드의 <kbd>0</kbd>-<kbd>9</kbd> 키에 대응) 키를 눌러 숫자를 입력하고 <kbd>Enter</kbd> 키를 누르면 해당 페이지가 PVW로 올라옵니다.
   - <kbd>0</kbd>을 입력한 상태에서 <kbd>Enter</kbd> 키를 누르면 현재 PVW에 대기 중인 페이지의 앞 페이지가 PVW로 올라옵니다.
   - 존재하지 않는 페이지를 입력한 상태에서 <kbd>Enter</kbd> 키를 누르면 입력한 내용만 사라지고 아무 일도 일어나지 않습니다.
 - <kbd>-</kbd>/<kbd>+</kbd> 또는 <kbd>[</kbd>/<kbd>]</kbd> 키를 누르면 현재 PVW에 대기 중인 페이지의 이전/다음 페이지가 PVW로 올라옵니다.
