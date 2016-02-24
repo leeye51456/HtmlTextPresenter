@@ -1,5 +1,10 @@
 # HtmlTextPresenter Update Log
 
+## 3.2
+
+### 3.2-pre
+- `vh`, `vw` 단위를 PVW/PGM 뷰와 페이지 리스트에서 지원합니다.
+
 ## 3.1
 
 ### 3.1.1.160217

@@ -230,7 +230,7 @@ img {
   min-height: 110px;
   max-height: 110px;
   overflow: hidden;
-  font-size: 16px;
+  font-size: 17.6px;
   cursor: default;
 }
 #pvw {
@@ -329,11 +329,11 @@ img {
   color: #ffffff;
   margin: 4px 4px 8px 4px;
   padding: 2px;
-  width: 150px;
-  min-height: 73px;
-  max-height: 73px;
+  width: 146px;
+  min-height: 71px;
+  max-height: 71px;
   overflow: hidden;
-  font-size: 12px;
+  font-size: 11px;
   outline: #808080 solid 4px;
 }
 .pageListCell:hover {
