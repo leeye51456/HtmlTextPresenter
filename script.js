@@ -254,18 +254,17 @@ function cannotControlWnd() {
 function wndInit() {
   wnd = window.open('', 'wnd', 'scrollbar=no');
   try {
-    wnd.document.write('\
-<!doctype html>\n\
-<html>\n\
-<head>\n\
-<meta charset=\"utf-8\">\n\
-<link rel=\"stylesheet\" type=\"text/css\" href=\"styleWnd.css\">\n\
-<title>송출.HtmlTextPresenter</title>\n\
-</head>\n\
-<body>\n\
-<div id=\"txtContainer\"><div id=\"txtOut\"></div></div>\n\
-</body>\n\
-</html>');
+    wnd.document.write('<!doctype html>\n' + 
+                       '<html>\n' + 
+                       '<head>\n' + 
+                       '<meta charset=\"utf-8\">\n' + 
+                       '<link rel=\"stylesheet\" type=\"text/css\" href=\"styleWnd.css\">\n' + 
+                       '<title>송출.HtmlTextPresenter</title>\n' + 
+                       '</head>\n' + 
+                       '<body>\n' + 
+                       '<div id=\"txtContainer\"><div id=\"txtOut\"></div></div>\n' + 
+                       '</body>\n' + 
+                       '</html>');
   } catch (err) {
     if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 다시 띄울까요?')) {
       wnd = window.open('', 'wnd', 'scrollbar=no');
@@ -300,14 +299,14 @@ function displayTextFile() {
   var text = '';
   if (textArray.length > 0) {
     for (i = 0; i < textArray.length; i++) {
-      text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">\
-<div class="pageListCellContent">' + viewportUnitConverter(150, 75, textArray[i]) + '</div>\
-<div class="pageNum">' + (i + 1) + '</div></div>';
+      text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">' + 
+              '<div class="pageListCellContent">' + viewportUnitConverter(150, 75, textArray[i]) + '</div>' + 
+              '<div class="pageNum">' + (i + 1) + '</div></div>';
     }
   }
-  text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">\
-<div class="pageListCellContent"></div>\
-<div class="pageNum">' + (i + 1) + '</div></div>';
+  text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">' +
+          '<div class="pageListCellContent"></div>' + 
+          '<div class="pageNum">' + (i + 1) + '</div></div>';
   document.getElementById('pageListContainer').innerHTML = text;
 }
 
@@ -352,5 +351,5 @@ function fileLoad(isReload) {
     fr.readAsText(fileForm.files[0], encoding);
     return;
   }
-  alert('정상 작동하는 웹 브라우저: Internet Explorer 10+, Microsoft Edge, Chrome 7+, FireFox 3.6+, Opera 12.02+, Safari 6.0.2+');
+  alert('현재 사용 중인 웹 브라우저가 FileReader 객체를 지원하지 않습니다.');
 }
