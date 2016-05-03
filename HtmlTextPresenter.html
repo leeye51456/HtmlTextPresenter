@@ -11,6 +11,23 @@
   -->
 </head>
 
+<!-- 변경한 id 및 class 목록
+#wndOnOffBtn -> #window-button
+#encodings -> #encoding-datalist
+#fileForm -> #select-file
+#encodingTxt -> #encoding-text
+(없음) -> #update-list-button
+#kbdCtrlModeChk -> #use-keyboard
+#keyPadCtrlChk -> #use-keypad
+#txtPvwDisplayTxt -> #select-page-label (input text -> label)
+#txtPvwEndTxt -> #last-page-label (input text -> label)
+#txtCutBtn -> #text-cut-button
+#txtClearBtn -> #text-clear-button
+.pvwPgmObj, .pvwPgmPage -> 폐기(css에서 해당 요소 id로 접근할 것)
+#pageListContainer -> #pagelist-div
+#pageListContainerBeforeLoad -> #pagelist-guide-label
+-->
+
 <body>
   
   <header>
@@ -18,45 +35,45 @@
       H<small>tml</small>T<small>ext</small>P<small>resenter</small>
       <label>4.0-developing</label>
     </h1>
-    <input type="button" value="송출 창 띄우기/닫기">
+    <input type="button" id="window-button" value="송출 창 띄우기/닫기">
   </header>
   
-  <section>
-    <datalist id="encodings">
+  <section id="file-section">
+    <datalist id="encoding-datalist">
       <option value="euc-kr">
       <option value="utf-8">
       <option value="utf-16le">
       <option value="utf-16be">
     </datalist>
-    <input type="file" accept=".txt">
-    <input type="text" list="encodings" value="" placeholder="인코딩">
-    <input type="button" class="button" value="리스트 갱신">
+    <input type="file" id="select-file" accept=".txt">
+    <input type="text" id="encoding-text" list="encoding-datalist" value="" placeholder="인코딩">
+    <input type="button" id="update-list-button" value="리스트 갱신">
   </section>
   
-  <section>
-    <input type="checkbox" checked><label>키보드 송출</label>
-    <small>(<input type="checkbox" checked><label>키패드 사용</label>)</small>
-    <label></label><label>/0</label>
-    <input type="button" value="CUT">
-    <input type="button" value="CLEAR">
+  <section id="output-section">
+    <input type="checkbox" id="use-keyboard" checked><label for="use-keyboard">키보드 송출</label>
+    <small>(<input type="checkbox" id="use-keypad" checked><label for="use-keypad">키패드 사용</label>)</small>
+    <label id="select-page-label"></label><label id="last-page-label">/0</label>
+    <input type="button" id="text-cut-button" value="CUT">
+    <input type="button" id="text-clear-button" value="CLEAR">
   </section>
   
-  <section>
-    <div>
-      <div>(내용)</div>
-      <span>PVW</span>
-      <div>(페이지 번호)</div>
+  <section id="display-section">
+    <div id="pvw-div">
+      <div id="pvw-content">(내용)</div>
+      <span class="what-display">PVW</span>
+      <div id="pvw-pagenum">(페이지 번호)</div>
     </div>
     <div>
-      <div>(내용)</div>
-      <span>PGM</span>
-      <div>(페이지 번호)</div>
+      <div id="pgm-content">(내용)</div>
+      <span class="what-display">PGM</span>
+      <div id="pgm-pagenum">(페이지 번호)</div>
     </div>
   </section>
   
-  <section>
-    <div>
-      <label>텍스트 파일을 불러오세요.</label>
+  <section id="pagelist-section">
+    <div id="pagelist-div">
+      <label id="pagelist-guide-label" for="select-file">텍스트 파일을 불러오세요.</label>
     </div>
   </section>
   
