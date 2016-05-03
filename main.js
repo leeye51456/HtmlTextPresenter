@@ -258,7 +258,7 @@ function wndInit() {
                        '<html>\n' + 
                        '<head>\n' + 
                        '<meta charset=\"utf-8\">\n' + 
-                       '<link rel=\"stylesheet\" type=\"text/css\" href=\"styleWnd.css\">\n' + 
+                       '<link rel=\"stylesheet\" type=\"text/css\" href=\"presenter.css\">\n' + 
                        '<title>송출.HtmlTextPresenter</title>\n' + 
                        '</head>\n' + 
                        '<body>\n' + 
