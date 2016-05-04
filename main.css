@@ -13,7 +13,7 @@ body {
   margin: 0 auto;
 }
 
-h1 {
+header>h1, section>h1 {
   font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.5em;
   color: #101010;
@@ -21,7 +21,7 @@ h1 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-h2 {
+header>h2, section>h2 {
   font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.4em;
   color: #202020;
@@ -29,31 +29,10 @@ h2 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-h3 {
+header>h3, section>h3 {
   font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 1.3em;
   color: #303030;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-h4 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.2em;
-  color: #404040;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-h5 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.1em;
-  color: #505050;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-h6 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.0em;
-  color: #606060;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -62,160 +41,71 @@ hr {
   display: none;
 }
 
-a {
-  text-decoration: none;
-  color: #4080ff;
-}
-a::after {
-  content: "→";
-  background-color: #e0f0ff;
-  border: 2px solid #c0e0ff;
-  color: #80a0ff;
-  margin-left: 0.1em;
-  padding-left: 0.1em;
-  padding-right: 0.1em;
-}
-a:hover, a:active, a:hover::after, a:active::after {
-  background-color: #e0f0ff;
-  border-bottom: 2px solid #c0e0ff;
-}
-code {
-  font-family: D2Coding, monospace;
-  border: 2px solid #e8e8e8;
-  background-color: #f8f8f8;
-  padding: 0.1em 0.2em;
-}
-pre code {
-  border: none;
-  background-color: transparent;
-  padding: 0;
-}
-pre {
-  font-family: D2Coding, monospace;
-  border: 2px solid #e8e8e8;
-  background-color: #f8f8f8;
-  padding: 0.25em 1em;
-}
-
-table {
-  border-collapse: collapse;
-  margin: 0;
-  width: 100%;
-}
-tbody {
-  border-color: #e0e0e0;
-  border-width: 2px;
-  border-style: solid none none none;
-}
-thead, tfoot {
-  border: none;
-}
-tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-tr:nth-child(even) {
-  background-color: #f8f8f8;
-}
-thead th, tfoot td {
-  background-color: #f0f0f0;
-}
-th {
-  padding: 0.1em 0.5em;
-}
-td {
-  text-align: center;
-  width: 2em;
-  padding: 0.25em 0.5em;
-  line-height: 1.3;
-}
-tr:hover {
-  background-color: #f0f0f0;
-}
-
-blockquote {
-  margin: 1.25em 1em 1em 1em;
-  padding: 0.1px 1em 0.1px 2em;
-  border: 2px solid #e0e0e0;
-  border-left-width: 10px;
-  background-color: #f4f4f4;
-}
-
-img {
-  max-height: 144px;
-}
-
-/************************************************/
-
-.button {
+input[type="button"] {
   padding: 3px 15px;
 }
-.buttonStep {
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-  padding: 3px 7px;
-}
-.number {
+input[type="number"] {
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
   padding: 3px 3px;
   text-align: right;
   min-width: 3em;
 }
-.constTextInput {
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-  border: none;
-  background: none;
-  color: #000000;
-  width: 100px;
-}
-
-#h1BtnContainer {
-  float: right;
-}
-
-#fileForm {
+input[type="file"] {
   padding: 1px;
   width: 300px;
   background-color: #f0f0f0;
-  font-weight: bold;
 }
-#encodingTxt {
+
+
+/************************************************/
+
+#version-label {
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+#header-button-div {
+  float: right;
+}
+
+#file-section {
+  float: left;
+  width: 50%;
+}
+#encoding-text {
   padding: 3px;
   width: 5.5em;
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
 }
-#transBtnContainer {
-  float: right;
-  font-size: 1rem;
-  font-weight: normal;
+
+#output-section {
+  float: left;
+  width: 50%;
+  text-align: right;
 }
-#txtPvwDisplayTxt {
-  padding: 0 0 0 3px;
+#select-page-label {
+  display: inline-block;
+  margin: 0 0 0 3px;
   width: 3.5rem;
-  background-color: transparent;
-  border: none;
-  color: #000000;
   text-align: right;
   font-family: Consolas, monospace;
-  font-size: 1.5rem;
 }
-#txtPvwEndTxt {
-  padding: 0 3px 0 0;
+#last-page-label {
+  display: inline-block;
+  margin: 0 3px 0 0;
   width: 3rem;
-  background-color: transparent;
-  border: none;
-  color: #000000;
+  text-align: left;
   font-family: Consolas, monospace;
-  font-size: 1rem;
-  vertical-align: text-bottom;
+  font-size: 0.85em;
 }
-#txtCutBtn, #txtClearBtn {
-  vertical-align: bottom;
-  margin: 0;
-  padding: 0.25em 0.25em;
+#text-cut-button, #text-clear-button {
   width: 80px;
-  font-size: 1rem;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
   font-weight: bold;
 }
 
+/*
 #pvw, #pgm {
   position: relative;
   float: left;
@@ -245,7 +135,6 @@ img {
   background-color: rgba(0, 0, 0, 0);
 }
 #pvw *::-moz-selection, #pgm *::-moz-selection {
-  /* for Firefox */
   background-color: rgba(0, 0, 0, 0);
 }
 .pvwPgmObj {
@@ -306,7 +195,7 @@ img {
   background-color: rgba(0, 0, 0, 0);
 }
 #pageListContainer *::-moz-selection {
-  /* for Firefox */
+  for Firefox
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -366,7 +255,11 @@ img {
   text-shadow: 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000;
 }
 
+*/
+
 /************************************************/
+
+/*
 
 .pvwPgmObj h1 {
   font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
@@ -448,7 +341,11 @@ img {
   display: none;
 }
 
+*/
+
 /************************************************/
+
+/*
 
 .pageListCellContent h1 {
   font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
@@ -516,3 +413,5 @@ img {
 .pageListCellContent blockquote {
   display: none;
 }
+
+*/

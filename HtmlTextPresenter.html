@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>HtmlTextPresenter</title>
-  <!--
   <link rel="stylesheet" href="main.css" type="text/css">
+  <!--
   <script src="jquery-2.2.3.min.js" type="text/javascript"></script>
   <script src="main.js" type="text/javascript"></script>
   -->
@@ -33,9 +33,11 @@
   <header>
     <h1>
       H<small>tml</small>T<small>ext</small>P<small>resenter</small>
-      <label>4.0-developing</label>
+      <label id="version-label">4.0-developing</label>
+      <div id="header-button-div">
+        <input type="button" id="window-button" value="송출 창 띄우기/닫기">
+      </div>
     </h1>
-    <input type="button" id="window-button" value="송출 창 띄우기/닫기">
   </header>
   
   <section id="file-section">
@@ -53,7 +55,7 @@
   <section id="output-section">
     <input type="checkbox" id="use-keyboard" checked><label for="use-keyboard">키보드 송출</label>
     <small>(<input type="checkbox" id="use-keypad" checked><label for="use-keypad">키패드 사용</label>)</small>
-    <label id="select-page-label"></label><label id="last-page-label">/0</label>
+    <label id="select-page-label">1234</label><label id="last-page-label">/5678</label>
     <input type="button" id="text-cut-button" value="CUT">
     <input type="button" id="text-clear-button" value="CLEAR">
   </section>
