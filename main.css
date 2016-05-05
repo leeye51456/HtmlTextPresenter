@@ -105,39 +105,44 @@ input[type="file"] {
   font-weight: bold;
 }
 
-/*
-#pvw, #pgm {
-  position: relative;
-  float: left;
+#display-section {
+  clear: both;
   display: flex;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+#pvw-div, #pgm-div {
+  position: relative;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   background-color: #000000;
   color: #ffffff;
-  margin: 5px 15px 15px 0;
   padding: 5px;
   width: 230px;
   min-height: 110px;
   max-height: 110px;
   overflow: hidden;
-  font-size: 17.6px;
   cursor: default;
 }
-#pvw {
-  left: 5px;
+#pvw-div {
+  margin: 5px 5px 5px 0;
   outline: #00a000 solid 5px;
 }
-#pgm {
-  left: 5px;
+#pgm-div {
+  margin: 5px 0 5px 5px;
   outline: #808080 solid 5px;
 }
-#pvw *::selection, #pgm *::selection {
+#pvw-div *::selection,
+#pgm-div *::selection {
   background-color: rgba(0, 0, 0, 0);
 }
-#pvw *::-moz-selection, #pgm *::-moz-selection {
+#pvw-div *::-moz-selection,
+#pgm-div *::-moz-selection {
   background-color: rgba(0, 0, 0, 0);
 }
-.pvwPgmObj {
+#pvw-content, #pgm-content {
   width: 100%;
   text-align: center;
   white-space: nowrap;
@@ -145,40 +150,34 @@ input[type="file"] {
   text-overflow: ellipsis;
   line-height: 1.2;
 }
-.pvwPgmObj * {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.2;
-}
-.pvwPgmIndicator {
+.what-display {
   position: absolute;
   left: 0;
   bottom: 0;
-  padding: 0 3px;
+  padding: 0 5px;
   font-family: Consolas, monospace;
   font-weight: bold;
   color: #ffffff;
-  font-size: 1rem;
   text-align: left;
-  text-shadow: 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.pvwPgmPage {
+#pvw-pagenum, #pgm-pagenum {
   position: absolute;
   right: 0;
   bottom: 0;
-  padding: 0 3px;
+  padding: 0 5px;
   font-family: Consolas, monospace;
   font-weight: bold;
   color: #ffffff;
-  font-size: 1rem;
   text-align: right;
-  text-shadow: 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-#pageListContainer {
-  display: flex;
+#pagelist-section {
   clear: both;
+}
+#pagelist-div {
+  display: flex;
   width: 992px;
   background-color: #c0c0c0;
   overflow-y: scroll;
@@ -191,24 +190,23 @@ input[type="file"] {
   font-family: 나눔바른고딕OTF;
   cursor: default;
 }
-#pageListContainer *::selection {
+#pagelist-div *::selection {
   background-color: rgba(0, 0, 0, 0);
 }
-#pageListContainer *::-moz-selection {
-  for Firefox
+#pagelist-div *::-moz-selection {
   background-color: rgba(0, 0, 0, 0);
 }
-
-#pageListContainer>#pageListContainerBeforeLoad {
+#pagelist-div > #pagelist-guide-label {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
   width: 100%;
   height: 100%;
   color: #808080;
   font-size: 3em;
 }
+
+/*
 .pageListCell {
   position: relative;
   display: flex;
