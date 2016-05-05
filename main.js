@@ -1,3 +1,53 @@
+/*jslint node:true */
+/*global $, jQuery, alert */
+'use strict';
+
+var wnd;
+var textArray = [''];
+
+var keyboardControl = (function () {
+  var
+    log = '',
+    cutLog = function () {
+      if (log.length > 4) {
+        log = log.slice(-4);
+      }
+      log = log.replace(/^0+(?=\d)/, '');
+    },
+    updateSelectPageLabel = function () {
+      $('#select-page-label').text(log === '' ? '&nbsp;' : log);
+    };
+  return {
+    enabled: true,
+    useKeypad: true,
+    addLog: function (l) {
+      if (typeof l === 'string') {
+        log += l;
+        cutLog();
+        updateSelectPageLabel();
+        return l;
+      } else if (typeof l === 'number') {
+        log += String(l);
+        cutLog();
+        updateSelectPageLabel();
+        return String(l);
+      }
+      return '';
+    },
+    getLog: function () {
+      return log;
+    },
+    clearLog: function () {
+      var logTemp = log;
+      log = '';
+      updateSelectPageLabel();
+      return logTemp;
+    }
+  };
+}());
+
+/*
+
 var wnd;
 var textArray = [];
 var textFileContent = '';
@@ -353,3 +403,5 @@ function fileLoad(isReload) {
   }
   alert('현재 사용 중인 웹 브라우저가 FileReader 객체를 지원하지 않습니다.');
 }
+
+*/
