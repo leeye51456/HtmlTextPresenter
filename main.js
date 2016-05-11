@@ -70,10 +70,10 @@ var PageViewControl = function (p_name) {
     updateThisOnly: function () {
       // 나중에 name-div 아래 다 class로 바꿔라
       $('#' + this.name + '-div')
-          .find('#' + this.name + '-content')
+          .find('.content-display')
           .html(textArray[this.pageNumber])
         .end()
-          .find('#' + this.name + '-pagenum')
+          .find('.pagenum-display')
           .text(this.pageNumber);
       $('#pagelist-div')
           .find('#' + this.name + this.pageNumber)

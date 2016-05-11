@@ -142,7 +142,7 @@ input[type="file"] {
 #pgm-div *::-moz-selection {
   background-color: rgba(0, 0, 0, 0);
 }
-#pvw-content, #pgm-content {
+.content-display {
   width: 100%;
   text-align: center;
   white-space: nowrap;
@@ -161,7 +161,7 @@ input[type="file"] {
   text-align: left;
   background-color: rgba(0, 0, 0, 0.5);
 }
-#pvw-pagenum, #pgm-pagenum {
+.pagenum-display {
   position: absolute;
   right: 0;
   bottom: 0;
