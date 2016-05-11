@@ -46,6 +46,53 @@ var keyboardControl = (function () {
   };
 }());
 
+var PageViewControl = function (p_name) {
+  var
+    name = p_name,
+    pageNumber = 0,
+    instancesToUpdate = [this];
+  return {
+    getPageNumber: function () {
+      return this.pageNumber;
+    },
+    setPageNumber: function (n) {
+      return (this.pageNumber = n);
+    },
+    getName: function () {
+      return this.name;
+    },
+    setName: function (newName) {
+      return (this.name = newName);
+    },
+    setInstancesToUpdate: function (pageViewControls) {
+      return (this.instancesToUpdate = (pageViewControls instanceof Array) ? pageViewControls : [pageViewControls.toString()]);
+    },
+    updateThisOnly: function () {
+      // 나중에 name-div 아래 다 class로 바꿔라
+      $('#' + this.name + '-div')
+          .find('#' + this.name + '-content')
+          .html(textArray[this.pageNumber])
+        .end()
+          .find('#' + this.name + '-pagenum')
+          .text(this.pageNumber);
+      $('#pagelist-div')
+          .find('#' + this.name + this.pageNumber)
+          .addClass(name + 'Border');
+    },
+    updateViews: function () {
+      var item;
+      $('#pagelist-div')
+          .children()
+          .removeClass();
+      for (item in this.instancesToUpdate) {
+        if (this.instancesToUpdate.hasOwnProperty(item)) {
+          item.updateThisOnly();
+        }
+      }
+    }
+  };
+};
+
 /*
 
 var wnd;
