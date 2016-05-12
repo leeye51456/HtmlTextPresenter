@@ -50,43 +50,42 @@ var PageViewControl = function (p_name) {
   var
     name = p_name,
     pageNumber = 0,
-    instancesToUpdate = [this];
+    instancesToUpdate = [];
   return {
     getPageNumber: function () {
-      return this.pageNumber;
+      return pageNumber;
     },
     setPageNumber: function (n) {
-      return (this.pageNumber = n);
+      return (pageNumber = n);
     },
     getName: function () {
-      return this.name;
+      return name;
     },
     setName: function (newName) {
-      return (this.name = newName);
+      return (name = newName);
     },
     setInstancesToUpdate: function (pageViewControls) {
-      return (this.instancesToUpdate = (pageViewControls instanceof Array) ? pageViewControls : [pageViewControls.toString()]);
+      return (instancesToUpdate = (pageViewControls instanceof Array) ? pageViewControls : [pageViewControls.toString()]);
     },
     updateThisOnly: function () {
-      // 나중에 name-div 아래 다 class로 바꿔라
-      $('#' + this.name + '-div')
+      $('#' + name + '-div')
           .find('.content-display')
-          .html(textArray[this.pageNumber])
+          .html(textArray[pageNumber])
         .end()
           .find('.pagenum-display')
-          .text(this.pageNumber);
+          .text(pageNumber);
       $('#pagelist-div')
-          .find('#' + this.name + this.pageNumber)
+          .find('#' + name + pageNumber)
           .addClass(name + 'Border');
     },
     updateViews: function () {
-      var item;
+      var idx, ituLength = instancesToUpdate.length;
       $('#pagelist-div')
           .children()
           .removeClass();
-      for (item in this.instancesToUpdate) {
-        if (this.instancesToUpdate.hasOwnProperty(item)) {
-          item.updateThisOnly();
+      for (idx = 0; idx < ituLength; idx += 1) {
+        if (instancesToUpdate[idx].updateThisOnly) {
+          instancesToUpdate[idx].updateThisOnly();
         }
       }
     }
