@@ -2,8 +2,7 @@
 /*global $, jQuery, alert */
 'use strict';
 
-var wnd;
-var textArray = [''];
+var wnd, textArray = [''];
 
 var keyboardControl = (function () {
   var
@@ -46,51 +45,61 @@ var keyboardControl = (function () {
   };
 }());
 
-var PageViewControl = function (p_name) {
-  var
-    name = p_name,
-    pageNumber = 0,
-    instancesToUpdate = [];
+var pgmControl = (function () {
+  var pageNumber = 0;
   return {
     getPageNumber: function () {
-      return pageNumber;
+      return this.pageNumber;
     },
     setPageNumber: function (n) {
-      return (pageNumber = n);
+      return (this.pageNumber = n);
     },
-    getName: function () {
-      return name;
-    },
-    setName: function (newName) {
-      return (name = newName);
-    },
-    setInstancesToUpdate: function (pageViewControls) {
-      return (instancesToUpdate = (pageViewControls instanceof Array) ? pageViewControls : [pageViewControls.toString()]);
-    },
-    updateThisOnly: function () {
-      $('#' + name + '-div')
-          .find('.content-display')
-          .html(textArray[pageNumber])
-        .end()
-          .find('.pagenum-display')
-          .text(pageNumber);
-      $('#pagelist-div')
-          .find('#' + name + pageNumber)
-          .addClass(name + 'Border');
-    },
-    updateViews: function () {
-      var idx, ituLength = instancesToUpdate.length;
-      $('#pagelist-div')
-          .children()
-          .removeClass();
-      for (idx = 0; idx < ituLength; idx += 1) {
-        if (instancesToUpdate[idx].updateThisOnly) {
-          instancesToUpdate[idx].updateThisOnly();
+    update: function (onlyThumbnail) {
+      if (!wnd.closed || wnd) {
+        if (!onlyThumbnail) {
+          wnd.$('#text-section')
+              .find('#text-div');
+          $('#pgm-div')
+              .find('.content-display')
+              .html(textArray[this.pageNumber])
+            .end()
+              .find('.pagenum-display')
+              .text(this.pageNumber);
         }
+        $('#pagelist-div')
+            .find('#pagelist-thumb' + this.pageNumber)
+            .addClass('pgm-border');
+      } else {
+        alert('송출 창을 여세요!');
       }
     }
   };
-};
+}());
+
+var pvwControl = (function () {
+  var pageNumber = 0;
+  return {
+    getPageNumber: function () {
+      return this.pageNumber;
+    },
+    setPageNumber: function (n) {
+      return (this.pageNumber = n);
+    },
+    update: function () {
+      $('#pvw-div')
+          .find('.content-display')
+          .html(textArray[this.pageNumber])
+        .end()
+          .find('.pagenum-display')
+          .text(this.pageNumber);
+      $('#pagelist-div')
+          .find('#pagelist-thumb' + pageNumber)
+          .addClass('pvw-border');
+      pgmControl.update(true);
+    }
+  };
+}());
+
 
 /*
 
