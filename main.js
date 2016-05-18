@@ -101,6 +101,37 @@ var pvwControl = (function () {
 }());
 
 
+// functions
+function wndInit() {
+}
+function fileLoad() {
+}
+function updateKeyboardSettings() {
+}
+function textCut() {
+}
+function txtClear() {
+}
+
+
+// event listeners
+$(document).ready(function () {
+  var pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
+  
+  $('#window-button').on('click', wndInit);
+  
+  $('#select-file').on('change', fileLoad);
+  $('#update-list-button').on('click', fileLoad);
+  
+  $('#output-section').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
+  
+  $('#text-cut-button').on('click', textCut);
+  $('#text-clear-button').on('click', txtClear);
+  
+  $('#pagelist-div').css('height', String(pagelistHeight));
+});
+
+
 /*
 
 var wnd;
