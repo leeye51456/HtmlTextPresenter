@@ -1,5 +1,5 @@
 /*jslint node:true */
-/*global $, jQuery, alert */
+/*global $, jQuery, alert, confirm */
 'use strict';
 
 var wnd, textArray = [''];
@@ -52,7 +52,10 @@ var pgmControl = (function () {
       return this.pageNumber;
     },
     setPageNumber: function (n) {
-      return (this.pageNumber = n);
+      if (n < textArray.length) {
+        return (this.pageNumber = n);
+      }
+      return -1;
     },
     update: function (onlyThumbnail) {
       if (!wnd.closed || wnd) {
@@ -83,7 +86,10 @@ var pvwControl = (function () {
       return this.pageNumber;
     },
     setPageNumber: function (n) {
-      return (this.pageNumber = n);
+      if (n < textArray.length) {
+        return (this.pageNumber = n);
+      }
+      return -1;
     },
     update: function () {
       $('#pvw-div')
@@ -102,15 +108,55 @@ var pvwControl = (function () {
 
 
 // functions
-function wndInit() {
-}
-function fileLoad() {
-}
-function updateKeyboardSettings() {
-}
+
 function textCut() {
 }
 function txtClear() {
+}
+
+function wndInit() {
+  wnd = window.open('', 'wnd', 'scrollbar=no');
+  try {
+    wnd.document.write('<!doctype html>' +
+      '<html>' +
+      '<head>' +
+      '<meta charset="utf-8">' +
+      '<title>[송출] HtmlTextPresenter</title>' +
+      '<link rel="stylesheet" href="presenter.css" type="text/css">' +
+      '<script src="jquery-2.2.3.min.js" type="text/javascript"></script>' +
+      //'<script src="presenter.js" type="text/javascript"></script>' +
+      '</head>' +
+      '<body>' +
+      '<section id="text-section">' +
+      '<div id="text-div"></div>' +
+      '</section>' +
+      '</body>' +
+      '</html>');
+  } catch (err) {
+    if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 다시 띄울까요?')) {
+      wnd = window.open('', 'wnd', '');
+      wnd.close();
+      wndInit();
+    }
+    return;
+  }
+  
+  pgmControl.setPageNumber(1);
+  txtClear();
+  pvwControl.setPageNumber(1);
+  pvwControl.update();
+  
+  //wnd.onkeydown = documentKeyDown;
+  //wnd.onkeypress = documentKeyPress;
+  wnd.onunload = function () {
+    pgmControl.setPageNumber(0);
+    pgmControl.update();
+  };
+}
+
+function fileLoad() {
+}
+function updateKeyboardSettings() {
 }
 
 
