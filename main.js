@@ -1,4 +1,4 @@
-/*jslint node:true */
+/*jslint node:true regexp:true*/
 /*global $, jQuery, alert, confirm */
 'use strict';
 
@@ -51,9 +51,9 @@ var pgmControl = (function () {
     getPageNumber: function () {
       return this.pageNumber;
     },
-    setPageNumber: function (n) {
-      if (n < textArray.length) {
-        return (this.pageNumber = n);
+    setPageNumber: function (pageNum) {
+      if (pageNum < textArray.length) {
+        return (this.pageNumber = pageNum);
       }
       return -1;
     },
@@ -85,13 +85,16 @@ var pvwControl = (function () {
     getPageNumber: function () {
       return this.pageNumber;
     },
-    setPageNumber: function (n) {
-      if (n < textArray.length) {
-        return (this.pageNumber = n);
+    setPageNumber: function (pageNum) {
+      if (pageNum < textArray.length) {
+        return (this.pageNumber = pageNum);
       }
       return -1;
     },
-    update: function () {
+    update: function (pageNum) {
+      if (pageNum) {
+        this.setPageNumber(pageNum);
+      }
       $('#pvw-div')
           .find('.content-display')
           .html(textArray[this.pageNumber])
@@ -123,7 +126,7 @@ function wndInit() {
       '<meta charset="utf-8">' +
       '<title>[송출] HtmlTextPresenter</title>' +
       '<link rel="stylesheet" href="presenter.css" type="text/css">' +
-      '<script src="jquery-2.2.3.min.js" type="text/javascript"></script>' +
+      //'<script src="jquery-2.2.3.min.js" type="text/javascript"></script>' +
       //'<script src="presenter.js" type="text/javascript"></script>' +
       '</head>' +
       '<body>' +
@@ -154,8 +157,64 @@ function wndInit() {
   };
 }
 
-function fileLoad() {
+
+function readTextFile(e) {
+  var
+    i, textArrayLength,
+    contents = e.target.result
+    .replace(/\r\n/g, '\n')
+    .replace(/^\n+/g, '')
+    .replace(/\n+$/g, '')
+    .replace(/&(?!(amp;|nbsp;|#\d+;|#x[0-9a-f]+;))/gi, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>');
+  textArray = contents.split('<br><br>');
+  textArrayLength = textArray.length;
+  for (i = 0; i < textArrayLength; i += 1) {
+    textArray[i] = textArray[i]
+      .replace(/^(<br>)+/, '')
+      .replace(/(<br>)+$/, '')
+      .replace(/^###### *(.*) *#* *$/gm, '<h6>$1</h6>')
+      .replace(/^##### *(.*) *#* *$/gm, '<h5>$1</h5>')
+      .replace(/^#### *(.*) *#* *$/gm, '<h4>$1</h4>')
+      .replace(/^### *(.*) *#* *$/gm, '<h3>$1</h3>')
+      .replace(/^## *(.*) *#* *$/gm, '<h2>$1</h2>')
+      .replace(/^# *(.*) *#* *$/gm, '<h1>$1</h1>')
+      .replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
+      .replace(/(\*|_)(.+?)\1/g, '<em>$2</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>');
+  }
+  $('#last-page-label').text('/' + (textArrayLength + 1));
+  //displayTextFile();
+  if (wnd && !wnd.closed) {
+    pvwControl.setPageNumber(1);
+    pvwControl.update();
+  }
 }
+
+function fileLoad() {
+  try {
+    var
+      fileForm = document.getElementById('select-file'),
+      fr = new window.FileReader(),
+      encoding = $('#encoding-text').val();
+    if (fileForm.files.length !== 1) {
+      alert('텍스트 파일이 선택되지 않았습니다.');
+      return;
+    }
+    if (!encoding) {
+      encoding = 'euc-kr';
+    }
+    $('#pgm-div').find('.pagenum-display').html('');
+    fr.onload = readTextFile;
+    fr.readAsText(fileForm.files[0], encoding);
+  } catch (err) {
+    console.log('something wrong in fileLoad() function. ' + err);
+  }
+  return;
+}
+
 function updateKeyboardSettings() {
 }
 
