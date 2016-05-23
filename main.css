@@ -205,9 +205,7 @@ input[type="file"] {
   color: #808080;
   font-size: 3em;
 }
-
-/*
-.pageListCell {
+.pagelist-cell {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -223,10 +221,11 @@ input[type="file"] {
   font-size: 11px;
   outline: #808080 solid 4px;
 }
-.pageListCell:hover {
+.pagelist-cell:hover {
+  outline: #a0a000 solid 4px;
   background-color: #404000;
 }
-.pageListCellContent {
+.pagelist-cell-content {
   width: 100%;
   text-align: center;
   white-space: nowrap;
@@ -234,26 +233,24 @@ input[type="file"] {
   text-overflow: ellipsis;
   line-height: 1.2;
 }
-.pageListCellContent * {
+.pagelist-cell-content * {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2;
 }
-.pageNum {
+.pagelist-cell-pagenum {
   position: absolute;
   right: 0;
   bottom: 0;
-  padding: 0 3px;
+  padding: 0 5px;
   font-family: Consolas, monospace;
   font-weight: bold;
   color: #ffffff;
   font-size: 1rem;
   text-align: right;
-  text-shadow: 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000, 0 0 0.5rem #000000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-
-*/
 
 /************************************************/
 
