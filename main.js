@@ -158,6 +158,24 @@ function wndInit() {
 }
 
 
+function updatePageList() {
+  var
+    i = 0,
+    html = '',
+    textArrayLength = textArray.length;
+  if (textArrayLength > 0) {
+    for (i = 0; i < textArrayLength; i += 1) {
+      html += '<div id="pagelist-cell' + (i + 1) + '" class="pagelist-cell">' +
+        '<div class="pagelist-cell-content">' + textArray[i] + '</div>' +
+        '<div class="pagelist-cell-pagenum">' + (i + 1) + '</div></div>';
+    }
+  }
+  html += '<div id="pagelist-cell' + (i + 1) + '" class="pagelist-cell">' +
+    '<div class="pagelist-cell-content"></div>' +
+    '<div class="pagelist-cell-pagenum">' + (i + 1) + '</div></div>';
+  $('#pagelist-div').html(html);
+}
+
 function readTextFile(e) {
   var
     i, textArrayLength,
@@ -186,7 +204,7 @@ function readTextFile(e) {
       .replace(/`(.+?)`/g, '<code>$1</code>');
   }
   $('#last-page-label').text('/' + (textArrayLength + 1));
-  //displayTextFile();
+  updatePageList();
   if (wnd && !wnd.closed) {
     pvwControl.setPageNumber(1);
     pvwControl.update();
