@@ -58,7 +58,7 @@ var pgmControl = (function () {
       return -1;
     },
     update: function (onlyThumbnail) {
-      if (!wnd.closed || wnd) {
+      if (wnd && !wnd.closed) {
         if (!onlyThumbnail) {
           wnd.$('#text-section')
               .find('#text-div');
@@ -72,8 +72,6 @@ var pgmControl = (function () {
         $('#pagelist-div')
             .find('#pagelist-thumb' + this.pageNumber)
             .addClass('pgm-border');
-      } else {
-        alert('송출 창을 여세요!');
       }
     }
   };
@@ -164,15 +162,12 @@ function updatePageList() {
     html = '',
     textArrayLength = textArray.length;
   if (textArrayLength > 0) {
-    for (i = 0; i < textArrayLength; i += 1) {
-      html += '<div id="pagelist-cell' + (i + 1) + '" class="pagelist-cell">' +
+    for (i = 1; i < textArrayLength; i += 1) {
+      html += '<div id="pagelist-cell-' + i + '" class="pagelist-cell">' +
         '<div class="pagelist-cell-content">' + textArray[i] + '</div>' +
-        '<div class="pagelist-cell-pagenum">' + (i + 1) + '</div></div>';
+        '<div class="pagelist-cell-pagenum">' + i + '</div></div>';
     }
   }
-  html += '<div id="pagelist-cell' + (i + 1) + '" class="pagelist-cell">' +
-    '<div class="pagelist-cell-content"></div>' +
-    '<div class="pagelist-cell-pagenum">' + (i + 1) + '</div></div>';
   $('#pagelist-div').html(html);
 }
 
@@ -187,9 +182,9 @@ function readTextFile(e) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/\n/g, '<br>');
-  textArray = contents.split('<br><br>');
+  textArray = [''].concat(contents.split('<br><br>'), ['']);
   textArrayLength = textArray.length;
-  for (i = 0; i < textArrayLength; i += 1) {
+  for (i = 1; i < textArrayLength; i += 1) {
     textArray[i] = textArray[i]
       .replace(/^(<br>)+/, '')
       .replace(/(<br>)+$/, '')
@@ -203,7 +198,7 @@ function readTextFile(e) {
       .replace(/(\*|_)(.+?)\1/g, '<em>$2</em>')
       .replace(/`(.+?)`/g, '<code>$1</code>');
   }
-  $('#last-page-label').text('/' + (textArrayLength + 1));
+  $('#last-page-label').text('/' + (textArrayLength));
   updatePageList();
   if (wnd && !wnd.closed) {
     pvwControl.setPageNumber(1);
@@ -252,6 +247,13 @@ $(document).ready(function () {
   $('#text-clear-button').on('click', txtClear);
   
   $('#pagelist-div').css('height', String(pagelistHeight));
+  $('#pagelist-div').on('click', '.pagelist-cell', function () {
+    pvwControl.setPageNumber(+($(this).find('.pagelist-cell-pagenum').text()));
+    pvwControl.update();
+  });
+  //pagelist-cell
+  //pagelist-cell-content
+  //pagelist-cell-pagenum
 });
 
 
