@@ -167,7 +167,7 @@ function updatePageList() {
     textArrayLength = textArray.length;
   if (textArrayLength > 0) {
     for (i = 1; i < textArrayLength; i += 1) {
-      html += '<div id="pagelist-cell-' + i + '" class="pagelist-cell">' +
+      html += '<div class="pagelist-cell" data-page="' + i + '">' +
         '<div class="pagelist-cell-content">' + textArray[i] + '</div>' +
         '<div class="pagelist-cell-pagenum">' + i + '</div></div>';
     }
@@ -235,6 +235,15 @@ function fileLoad() {
 function updateKeyboardSettings() {
 }
 
+function setPvwFromPagelist(e) {
+  pvwControl.setPageNumber(+(
+    $(e.target)
+      .closest('.pagelist-cell')
+      .data('page')
+  ));
+  updatePvw();
+}
+
 
 // event listeners
 $(document).ready(function () {
@@ -251,10 +260,7 @@ $(document).ready(function () {
   $('#text-clear-button').on('click', textClear);
   
   $('#pagelist-div').css('height', String(pagelistHeight));
-  $('#pagelist-div').on('click', '.pagelist-cell', function () {
-    pvwControl.setPageNumber(+($(this).find('.pagelist-cell-pagenum').text()));
-    updatePvw();
-  });
+  $('#pagelist-div').on('click', '.pagelist-cell', setPvwFromPagelist);
   //pagelist-cell
   //pagelist-cell-content
   //pagelist-cell-pagenum
