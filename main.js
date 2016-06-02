@@ -156,6 +156,10 @@ function textClear() {
 }
 
 function wndInit() {
+  if (wnd && !wnd.closed && confirm('송출 창을 닫을까요?')) {
+    wnd.close();
+    return;
+  }
   wnd = window.open('', 'wnd', 'scrollbar=no');
   try {
     wnd.document.write('<!doctype html>' +
