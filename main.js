@@ -104,6 +104,7 @@ function updatePvw() {
 function updatePgm() {
   var pageNum = pgmControl.getPageNumber();
   if (wnd && !wnd.closed) {
+    pvwControl.setPageNumber(pageNum + 1);
     $('#pgm-div')
       .find('.content-display')
         .html(textArray[pageNum])
@@ -243,6 +244,16 @@ function setPvwFromPagelist(e) {
   ));
   updatePvw();
 }
+function setPgmFromPagelist(e) {
+  if (wnd && !wnd.closed) {
+    pgmControl.setPageNumber(+(
+      $(e.target)
+        .closest('.pagelist-cell')
+        .data('page')
+    ));
+    updatePgm();
+  }
+}
 
 
 // event listeners
@@ -261,9 +272,7 @@ $(document).ready(function () {
   
   $('#pagelist-div').css('height', String(pagelistHeight));
   $('#pagelist-div').on('click', '.pagelist-cell', setPvwFromPagelist);
-  //pagelist-cell
-  //pagelist-cell-content
-  //pagelist-cell-pagenum
+  $('#pagelist-div').on('dblclick', '.pagelist-cell', setPgmFromPagelist);
 });
 
 
