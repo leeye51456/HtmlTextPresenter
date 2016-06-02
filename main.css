@@ -205,6 +205,12 @@ input[type="file"] {
   color: #808080;
   font-size: 3em;
 }
+#pagelist-div > .pvw-border {
+  outline: #00a000 solid 4px;
+}
+#pagelist-div > .pgm-border {
+  outline: #e00000 solid 4px;
+}
 .pagelist-cell {
   position: relative;
   display: flex;
@@ -299,7 +305,6 @@ input[type="file"] {
 
 .content-display code {
   border: none;
-  background-color: transparent;
   padding: 0;
 }
 
@@ -350,6 +355,5 @@ input[type="file"] {
 
 .pagelist-cell-content code {
   border: none;
-  background-color: transparent;
   padding: 0;
 }

@@ -78,19 +78,6 @@ var pvwControl = (function () {
 
 // functions
 
-function updatePagelist() {
-  $('#pagelist-div')
-    .find('.pagelist-cell')
-      .removeClass('pvw-border')
-      .removeClass('pgm-border')
-      .end()
-    .find('#pagelist-cell-' + pvwControl.getPageNumber())
-      .addClass('pvw-border')
-      .end()
-    .find('#pagelist-cell-' + pgmControl.getPageNumber())
-      .removeClass('pvw-border')
-      .addClass('pgm-border');
-}
 function updatePvw() {
   var pageNum = pvwControl.getPageNumber();
   $('#pvw-div')
@@ -104,10 +91,10 @@ function updatePvw() {
       .removeClass('pvw-border')
       .removeClass('pgm-border')
       .end()
-    .find('#pagelist-cell-' + pvwControl.getPageNumber())
+    .find('[data-page="' + pageNum + '"]')
       .addClass('pvw-border')
       .end()
-    .find('#pagelist-cell-' + pgmControl.getPageNumber())
+    .find('[data-page="' + pgmControl.getPageNumber() + '"]')
       .removeClass('pvw-border')
       .addClass('pgm-border');
 }
@@ -120,13 +107,19 @@ function updatePgm() {
         .end()
       .find('.pagenum-display')
         .text(Boolean(pageNum) ? pageNum : '');
-    $('#pagelist-div')
-      .find('.pagelist-cell')
-        .removeClass('pvw-border')
-        .removeClass('pgm-border')
-        .end()
-      .find('#pagelist-cell-' + pgmControl.getPageNumber())
-        .addClass('pgm-border');
+    if (pageNum) {
+      $('#pagelist-div')
+        .find('.pagelist-cell')
+          .removeClass('pgm-border');
+    } else {
+      $('#pagelist-div')
+        .find('.pagelist-cell')
+          .removeClass('pvw-border')
+          .removeClass('pgm-border')
+          .end()
+        .find('[data-page="' + pageNum + '"]')
+          .addClass('pgm-border');
+    }
   }
 }
 
@@ -140,8 +133,8 @@ function textCut() {
     $(wnd.document)
       .find('#text-div')
       .html(textArray[pgmPage]);
-    updatePvw();
     updatePgm();
+    updatePvw();
   }
 }
 function textClear() {
@@ -150,8 +143,8 @@ function textClear() {
     $(wnd.document)
       .find('#text-div')
       .html('');
-    updatePvw();
     updatePgm();
+    updatePvw();
   }
 }
 
@@ -191,10 +184,10 @@ function wndInit() {
   
   //wnd.onkeydown = documentKeyDown;
   //wnd.onkeypress = documentKeyPress;
-  wnd.onunload = function () {
+  $(wnd).on('unload', function () {
     pgmControl.setPageNumber(0);
     textClear();
-  };
+  });
 }
 
 
