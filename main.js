@@ -99,7 +99,17 @@ function updatePvw() {
       .end()
     .find('.pagenum-display')
       .text(pageNum);
-  updatePagelist();
+  $('#pagelist-div')
+    .find('.pagelist-cell')
+      .removeClass('pvw-border')
+      .removeClass('pgm-border')
+      .end()
+    .find('#pagelist-cell-' + pvwControl.getPageNumber())
+      .addClass('pvw-border')
+      .end()
+    .find('#pagelist-cell-' + pgmControl.getPageNumber())
+      .removeClass('pvw-border')
+      .addClass('pgm-border');
 }
 function updatePgm() {
   var pageNum = pgmControl.getPageNumber();
@@ -111,11 +121,29 @@ function updatePgm() {
         .end()
       .find('.pagenum-display')
         .text(Boolean(pageNum) ? pageNum : '');
-    updatePagelist();
+    $('#pagelist-div')
+      .find('.pagelist-cell')
+        .removeClass('pvw-border')
+        .removeClass('pgm-border')
+        .end()
+      .find('#pagelist-cell-' + pgmControl.getPageNumber())
+        .addClass('pgm-border');
   }
 }
 
 function textCut() {
+  var
+    pgmPage = pvwControl.getPageNumber(),
+    pvwPage = pgmPage + 1;
+  if (wnd && !wnd.closed) {
+    pvwControl.setPageNumber(pvwPage);
+    pgmControl.setPageNumber(pgmPage);
+    $(wnd.document)
+      .find('#text-div')
+      .html(textArray[pgmPage]);
+    updatePvw();
+    updatePgm();
+  }
 }
 function textClear() {
 }
@@ -161,7 +189,7 @@ function wndInit() {
 }
 
 
-function updatePageList() {
+function updatePagelistHtml() {
   var
     i = 0,
     html = '',
@@ -204,7 +232,7 @@ function readTextFile(e) {
       .replace(/`(.+?)`/g, '<code>$1</code>');
   }
   $('#last-page-label').text('/' + (textArrayLength));
-  updatePageList();
+  updatePagelistHtml();
   if (wnd && !wnd.closed) {
     pvwControl.setPageNumber(1);
     updatePvw();
@@ -251,7 +279,7 @@ function setPgmFromPagelist(e) {
         .closest('.pagelist-cell')
         .data('page')
     ));
-    updatePgm();
+    textCut();
   }
 }
 
