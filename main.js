@@ -114,7 +114,6 @@ function updatePvw() {
 function updatePgm() {
   var pageNum = pgmControl.getPageNumber();
   if (wnd && !wnd.closed) {
-    pvwControl.setPageNumber(pageNum + 1);
     $('#pgm-div')
       .find('.content-display')
         .html(textArray[pageNum])
@@ -146,6 +145,14 @@ function textCut() {
   }
 }
 function textClear() {
+  if (wnd && !wnd.closed) {
+    pgmControl.setPageNumber(0);
+    $(wnd.document)
+      .find('#text-div')
+      .html('');
+    updatePvw();
+    updatePgm();
+  }
 }
 
 function wndInit() {
