@@ -164,8 +164,6 @@ function wndInit() {
       '<meta charset="utf-8">' +
       '<title>[송출] HtmlTextPresenter</title>' +
       '<link rel="stylesheet" href="presenter.css" type="text/css">' +
-      //'<script src="jquery-2.2.3.min.js" type="text/javascript"></script>' +
-      //'<script src="presenter.js" type="text/javascript"></script>' +
       '</head>' +
       '<body>' +
       '<section id="text-section">' +
@@ -318,26 +316,6 @@ var textArray = [];
 var textFileContent = '';
 
 
-function viewportUnitConverter(pWidth, pHeight, pSource) {
-  var result = pSource;
-  var patt = /(<.+?\s+style\s*=\s*)(['"])([^\2]*?)([0-9.]+)(\s*)(v[hw])([^\2]*?\2.*?>)/;
-  var stringCut = '';
-  var sizeUnit = '';
-  var newValue = 0;
-  while (patt.test(result)) {
-    stringCut = result.match(patt)[0];
-    sizeUnit = stringCut.replace(patt, '$6');
-    sizeValue = Number(stringCut.replace(patt, '$4'));
-    newValue = 11 * pHeight / 75 * sizeValue / 8.75;
-    if (sizeUnit == 'vw') {
-      newValue = newValue * 4 / 3;
-    }
-    result = result.replace(patt, '$1$2$3' + newValue + '$5px$7');
-  }
-  return result;
-}
-
-
 var kbdCtrl = (function() {
   var numLog = '';
   var chkLog = function() {
@@ -374,70 +352,6 @@ var kbdCtrl = (function() {
       numLog = '';
       updatePvwNumInput();
       return numLogTemp;
-    }
-  };
-})();
-
-var pvw = (function() {
-  var pageNum = 0;
-  return {
-    getPageNum: function() {
-      return this.pageNum;
-    },
-    updatePage: function(page) {
-      var temp = Number(page);
-      if (page === '0') {
-        this.updatePage(this.getPageNum() - 1);
-        return;
-      } else if (temp < 1 || temp > textArray.length + 1) {
-        return;
-      }
-      this.pageNum = temp;
-      for (i = 1; i <= textArray.length + 1; i++) {
-        document.getElementById('pageListCell' + i).style.outline = '';
-      }
-      if (this.getPageNum()) {
-        document.getElementById('pageListCell' + this.pageNum).style.outline = '#00a000 solid 4px';
-        document.getElementById('pvwObj').innerHTML = viewportUnitConverter(240, 120, textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '');
-        document.getElementById('pvwPageNum').innerHTML = '' + this.pageNum;
-      }
-      if (pgm.getPageNum()) {
-        document.getElementById('pageListCell' + pgm.getPageNum()).style.outline = '#ff4040 solid 4px';
-      }
-    }
-  };
-})();
-
-var pgm = (function() {
-  var pageNum = 0;
-  return {
-    getPageNum: function() {
-      return this.pageNum;
-    },
-    updatePage: function(page) {
-      var temp = Number(page);
-      if (temp < 0 || temp > textArray.length + 1) {
-        return;
-      }
-      this.pageNum = temp;
-      for (i = 1; i <= textArray.length + 1; i++) {
-        document.getElementById('pageListCell' + i).style.outline = '';
-      }
-      if (pvw.getPageNum()) {
-        document.getElementById('pageListCell' + pvw.getPageNum()).style.outline = '#00a000 solid 4px';
-      }
-      if (this.getPageNum()) {
-        wnd.document.getElementById('txtOut').innerHTML = textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '';
-        document.getElementById('pageListCell' + this.pageNum).style.outline = '#ff4040 solid 4px';
-        document.getElementById('pgmObj').innerHTML = viewportUnitConverter(240, 120, textArray[this.pageNum - 1] ? textArray[this.pageNum - 1] : '');
-        document.getElementById('pgmPageNum').innerHTML = this.pageNum;
-        document.getElementById('pgm').style.outline = '#ff4040 solid 5px';
-      } else {
-        wnd.document.getElementById('txtOut').innerHTML = '';
-        document.getElementById('pgmObj').innerHTML = '';
-        document.getElementById('pgmPageNum').innerHTML = '';
-        document.getElementById('pgm').style.outline = '';
-      }
     }
   };
 })();
@@ -541,31 +455,6 @@ function bodyLoad() {
   document.onkeypress = documentKeyPress;
 }
 
-
-function txtCut() {
-  if (!wnd || wnd.closed) {
-    alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
-    return;
-  }
-  pgm.updatePage(pvw.getPageNum());
-  pvw.updatePage(pvw.getPageNum() + 1);
-}
-
-function txtClear() {
-  if (!wnd || wnd.closed) {
-    alert('현재 송출 창이 떠 있지 않거나, 스위처와 송출 창이 서로 통신할 수 없는 상태이므로 송출 창을 다시 띄워야 합니다.');
-    return;
-  }
-  pgm.updatePage(0);
-}
-
-function cannotControlWnd() {
-  if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 닫을까요?')) {
-    wnd = window.open('', 'wnd', 'scrollbar=no');
-    wnd.close();
-  }
-}
-
 function wndInit() {
   wnd = window.open('', 'wnd', 'scrollbar=no');
   try {
@@ -597,76 +486,6 @@ function wndInit() {
   wnd.onunload = function() {
     pgm.updatePage(0);
   };
-}
-
-function wndOnOff() {
-  if (!wnd || wnd.closed) {
-    wndInit();
-  } else if (confirm('송출 창을 닫을까요?')) {
-    if (textArray.length > 0) {
-      pgm.updatePage(0);
-    }
-    wnd.close();
-  }
-}
-
-function displayTextFile() {
-  var text = '';
-  if (textArray.length > 0) {
-    for (i = 0; i < textArray.length; i++) {
-      text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">' + 
-              '<div class="pageListCellContent">' + viewportUnitConverter(150, 75, textArray[i]) + '</div>' + 
-              '<div class="pageNum">' + (i + 1) + '</div></div>';
-    }
-  }
-  text += '<div id="pageListCell' + (i + 1) + '" class="pageListCell" onclick="pvw.updatePage(' + (i + 1) + ');" ondblclick="txtCut();">' +
-          '<div class="pageListCellContent"></div>' + 
-          '<div class="pageNum">' + (i + 1) + '</div></div>';
-  document.getElementById('pageListContainer').innerHTML = text;
-}
-
-function readTextFile(e) {
-  var contents = e.target.result
-    .replace(/\r\n/g, '\n')
-    .replace(/^\n+/g, '')
-    .replace(/\n+$/g, '')
-    .replace(/&(?!(amp;|nbsp;|#\d+;|#x[0-9A-Fa-f]+;))/g, '&amp;')
-    .replace(/<(\/?)(\!doctype|a|audio|body|br|button|canvas|details|dialog|embed|fieldset|form|head|html|iframe|input|keygen|link|meta|object|output|script|select|style|textarea|title|video)(.*?\s*?\/?\s*?)>/gi, '&lt;$1$2$3&gt;')
-    .replace(/\n/g, '<br>');
-  textArray = contents.split('<br><br>');
-  for (i = 0; i < textArray.length; i++) {
-    textArray[i] = textArray[i]
-      .replace(/^(<br>)+/, '')
-      .replace(/(<br>)+$/, '');
-  }
-  document.getElementById('txtPvwEndTxt').value = '/' + (textArray.length + 1);
-  displayTextFile();
-  if (wnd && !wnd.closed) {
-    pvw.updatePage(1);
-  }
-}
-
-function fileLoad(isReload) {
-  var fileForm = document.getElementById('fileForm');
-  if (fileForm.files.length != 1) {
-    if (isReload) {
-      alert('텍스트 파일을 다시 선택해 주세요.');
-      document.getElementById('fileForm').click();
-    }
-    return;
-  }
-  if (FileReader) {
-    var fr = new FileReader();
-    var encoding = document.getElementById('encodingTxt').value;
-    if (!encoding) {
-      encoding = 'euc-kr';
-    }
-    document.getElementById('pgmPageNum').innerHTML = '';
-    fr.onload = readTextFile;
-    fr.readAsText(fileForm.files[0], encoding);
-    return;
-  }
-  alert('현재 사용 중인 웹 브라우저가 FileReader 객체를 지원하지 않습니다.');
 }
 
 */

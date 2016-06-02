@@ -9,23 +9,6 @@
   <script src="main.js" type="text/javascript"></script>
 </head>
 
-<!-- 변경한 id 및 class 목록
-#wndOnOffBtn -> #window-button
-#encodings -> #encoding-datalist
-#fileForm -> #select-file
-#encodingTxt -> #encoding-text
-(없음) -> #update-list-button
-#kbdCtrlModeChk -> #use-keyboard
-#keyPadCtrlChk -> #use-keypad
-#txtPvwDisplayTxt -> #select-page-label (input text -> label)
-#txtPvwEndTxt -> #last-page-label (input text -> label)
-#txtCutBtn -> #text-cut-button
-#txtClearBtn -> #text-clear-button
-.pvwPgmObj, .pvwPgmPage -> 폐기(css에서 해당 요소 id로 접근할 것)
-#pageListContainer -> #pagelist-div
-#pageListContainerBeforeLoad -> #pagelist-guide-label
--->
-
 <body>
   
   <header>
@@ -78,56 +61,5 @@
   </section>
   
 </body>
-
-<!--
-<body onload="bodyLoad();">
-
-<h1>
-  H<small>tml</small>T<small>ext</small>P<small>resenter</small>
-  <input type="text" class="constTextInput" value="4.0-developing" disabled>
-  <div id="h1BtnContainer">
-    <input type="button" id="wndOnOffBtn" class="button" value="송출 창 띄우기/닫기" onclick="wndOnOff();" onfocus="this.blur();" title="송출 창을 띄우고, 원하는 모니터로 옮긴 뒤, F11 키를 눌러 전체 화면으로 전환하세요.">
-  </div>
-</h1>
-
-<hr>
-
-<div id="switcherContainer">
-  <datalist id="encodings">
-    <option value="euc-kr">
-    <option value="utf-8">
-    <option value="utf-16le">
-    <option value="utf-16be">
-  </datalist>
-  <input type="file" id="fileForm" accept=".txt" onfocus="this.blur();" onchange="fileLoad(); this.blur();" title="텍스트 파일만 불러올 수 있습니다.">
-  <input type="text" id="encodingTxt" list="encodings" value="" placeholder="인코딩" onchange="this.blur();" title="인코딩 직접 지정">
-  <input type="button" id="fileLoadBtn" class="button" value="리스트 갱신" onclick="fileLoad(true);" onfocus="this.blur();">
-  <div id="transBtnContainer">
-    <input type="checkbox" id="kbdCtrlModeChk" onchange="kbdCtrl.enabled = this.checked;" onfocus="this.blur();" checked><label for="kbdCtrlModeChk" class="chkboxLabel">키보드 송출</label>
-    <small>(<input type="checkbox" id="keyPadCtrlChk" onchange="kbdCtrl.useKeypad = this.checked;" onfocus="this.blur();" checked><label for="keyPadCtrlChk" class="chkboxLabel">키패드 사용</label>)</small>
-    <input type="text" id="txtPvwDisplayTxt" value="" disabled><input type="text" id="txtPvwEndTxt" value="/0" disabled>
-    <input type="button" id="txtCutBtn" class="button" value="CUT" onclick="txtCut();" onfocus="this.blur();">
-    <input type="button" id="txtClearBtn" class="button" value="CLEAR" onclick="txtClear();" onfocus="this.blur();">
-  </div>
-  <div style="clear:both;">
-    <div id="pvw">
-      <div id="pvwObj" class="pvwPgmObj"></div>
-      <div class="pvwPgmIndicator">PVW</div>
-      <div id="pvwPageNum" class="pvwPgmPage"></div>
-    </div>
-    <div id="pgm">
-      <div id="pgmObj" class="pvwPgmObj"></div>
-      <div class="pvwPgmIndicator">PGM</div>
-      <div id="pgmPageNum" class="pvwPgmPage"></div>
-    </div>
-  </div>
-</div>
-
-<div id="pageListContainer">
-  <label id="pageListContainerBeforeLoad" for="fileForm">텍스트 파일을 불러오세요.</label>
-</div>
-
-</body>
--->
 
 </html>
