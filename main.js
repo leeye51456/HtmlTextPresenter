@@ -344,11 +344,13 @@ function wndInit() {
   textClear();
   pvwControl.setPageNumber(1);
   updatePvw();
+  $('#pgm-div').css('outline-color', '#e00000');
   
   $(wnd)
     .on('keydown', documentKeyDown)
     .on('keypress', documentKeyPress)
     .on('unload', function () {
+      $('#pgm-div').css('outline-color', '');
       pgmControl.setPageNumber(0);
       textClear();
     });

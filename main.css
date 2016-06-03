@@ -148,7 +148,7 @@ input[type="file"] {
 }
 #pgm-div {
   margin: 5px 0 5px 5px;
-  outline: #808080 solid 5px; /* #e00000 */
+  outline: #808080 solid 5px;
 }
 #pvw-div *::selection, #pvw-div *::-moz-selection
 #pgm-div *::selection, #pgm-div *::-moz-selection {
