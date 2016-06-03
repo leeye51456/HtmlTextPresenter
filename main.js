@@ -14,7 +14,7 @@ var keyboardControl = (function () {
       log = log.replace(/^0+(?=\d)/, '');
     },
     updateSelectPageLabel = function () {
-      $('#select-page-label').text(log === '' ? '&nbsp;' : log);
+      $('#select-page-label').html(log === '' ? '&nbsp;' : log);
     };
   return {
     enabled: true,
@@ -125,7 +125,7 @@ function updatePgm() {
 
 function textCut() {
   var
-    pgmPage = pvwControl.getPageNumber(),
+    pgmPage = +pvwControl.getPageNumber(),
     pvwPage = pgmPage + 1;
   if (wnd && !wnd.closed) {
     pvwControl.setPageNumber(pvwPage);
@@ -147,49 +147,6 @@ function textClear() {
     updatePvw();
   }
 }
-
-function wndInit() {
-  if (wnd && !wnd.closed && confirm('송출 창을 닫을까요?')) {
-    wnd.close();
-    return;
-  }
-  wnd = window.open('', 'wnd', 'scrollbar=no');
-  try {
-    wnd.document.write('<!doctype html>' +
-      '<html>' +
-      '<head>' +
-      '<meta charset="utf-8">' +
-      '<title>[송출] HtmlTextPresenter</title>' +
-      '<link rel="stylesheet" href="presenter.css" type="text/css">' +
-      '</head>' +
-      '<body>' +
-      '<section id="text-section">' +
-      '<div id="text-div"></div>' +
-      '</section>' +
-      '</body>' +
-      '</html>');
-  } catch (err) {
-    if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 다시 띄울까요?')) {
-      wnd = window.open('', 'wnd', '');
-      wnd.close();
-      wndInit();
-    }
-    return;
-  }
-  
-  pgmControl.setPageNumber(1);
-  textClear();
-  pvwControl.setPageNumber(1);
-  updatePvw();
-  
-  //wnd.onkeydown = documentKeyDown;
-  //wnd.onkeypress = documentKeyPress;
-  $(wnd).on('unload', function () {
-    pgmControl.setPageNumber(0);
-    textClear();
-  });
-}
-
 
 function updatePagelistHtml() {
   var
@@ -263,7 +220,144 @@ function fileLoad() {
   return;
 }
 
+function pageNumZeroFilter() {
+  var
+    pageNum = +keyboardControl.clearLog(),
+    len = textArray.length;
+  if (pageNum === 0) {
+    return pvwControl.getPageNumber() - 1;
+  } else if (pageNum < 1) {
+    return 1;
+  } else {
+    return pageNum;
+  }
+}
+function documentKeyDown(e) {
+  if ($(':focus').attr('id') !== 'encoding-text') {
+    var st = $('#pagelist-div').scrollTop();
+    if (e.keyCode === 38) { // Up
+      $('#pagelist-div').scrollTop(st - 87);
+      e.preventDefault();
+    } else if (e.keyCode === 40) { // Down
+      $('#pagelist-div').scrollTop(st + 87);
+      e.preventDefault();
+    }
+    if (!wnd || wnd.closed) {
+      return;
+    }
+    if (textArray.length > 1 && keyboardControl.enabled) {
+      if (keyboardControl.useKeypad) {
+        if (e.keyCode === 13) { // enter
+          if (keyboardControl.getLog()) {
+            pvwControl.setPageNumber(pageNumZeroFilter());
+            updatePvw();
+          } else {
+            textCut();
+          }
+        } else if (e.keyCode >= 96 && e.keyCode <= 105) { // 0-9
+          keyboardControl.addLog(e.keyCode - 96);
+        } else if (e.keyCode === 107) { // +
+          pvwControl.setPageNumber(+pvwControl.getPageNumber() + 1);
+          updatePvw();
+        } else if (e.keyCode === 109) { // -
+          pvwControl.setPageNumber(+pvwControl.getPageNumber() - 1);
+          updatePvw();
+        } else if (e.keyCode === 110) { // .
+          textClear();
+        }
+      } else if (!keyboardControl.useKeypad) {
+        if (e.keyCode === 13) { // enter
+          if (keyboardControl.getLog()) {
+            pvwControl.setPageNumber(pageNumZeroFilter());
+            updatePvw();
+          } else {
+            textCut();
+          }
+        } else if (e.keyCode === 77) { // Mm=0
+          keyboardControl.addLog(0);
+        } else if (e.keyCode === 74) { // Jj=1
+          keyboardControl.addLog(1);
+        } else if (e.keyCode === 75) { // Kk=2
+          keyboardControl.addLog(2);
+        } else if (e.keyCode === 76) { // Ll=3
+          keyboardControl.addLog(3);
+        } else if (e.keyCode === 85) { // Uu=4
+          keyboardControl.addLog(4);
+        } else if (e.keyCode === 73) { // Ii=5
+          keyboardControl.addLog(5);
+        } else if (e.keyCode === 79) { // Oo=6
+          keyboardControl.addLog(6);
+        } else if (e.keyCode >= 55 && e.keyCode <= 57) { // 7-9
+          keyboardControl.addLog(e.keyCode - 48);
+        } else if (e.keyCode === 219) { // [
+          pvwControl.setPageNumber(+pvwControl.getPageNumber() - 1);
+          updatePvw();
+        } else if (e.keyCode === 221) { // ]
+          pvwControl.setPageNumber(+pvwControl.getPageNumber() + 1);
+          updatePvw();
+        } else if (e.keyCode === 190) { // .
+          textClear();
+        }
+      }
+    }
+  }
+}
+function documentKeyPress(e) {
+  if ($(':focus').attr('id') === 'encoding-text') {
+    if (e.keyCode === 13) {
+      fileLoad();
+      e.preventDefault();
+    }
+  }
+}
+
+function wndInit() {
+  if (wnd && !wnd.closed && confirm('송출 창을 닫을까요?')) {
+    wnd.close();
+    return;
+  }
+  wnd = window.open('', 'wnd', 'scrollbar=no');
+  try {
+    wnd.document.write('<!doctype html>' +
+      '<html>' +
+      '<head>' +
+      '<meta charset="utf-8">' +
+      '<title>[송출] HtmlTextPresenter</title>' +
+      '<link rel="stylesheet" href="presenter.css" type="text/css">' +
+      '</head>' +
+      '<body>' +
+      '<section id="text-section">' +
+      '<div id="text-div"></div>' +
+      '</section>' +
+      '</body>' +
+      '</html>');
+  } catch (err) {
+    if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 다시 띄울까요?')) {
+      wnd = window.open('', 'wnd', '');
+      wnd.close();
+      wndInit();
+    }
+    return;
+  }
+  
+  pgmControl.setPageNumber(1);
+  textClear();
+  pvwControl.setPageNumber(1);
+  updatePvw();
+  
+  $(wnd)
+    .on('keydown', documentKeyDown)
+    .on('keypress', documentKeyPress)
+    .on('unload', function () {
+      pgmControl.setPageNumber(0);
+      textClear();
+    });
+}
+
 function updateKeyboardSettings() {
+  var $section = $('#output-section');
+  keyboardControl.enabled = $section.find('#use-keyboard').is(':checked');
+  keyboardControl.useKeypad = $section.find('#use-keypad').is(':checked');
 }
 
 function setPvwFromPagelist(e) {
@@ -300,9 +394,17 @@ $(document).ready(function () {
   $('#text-cut-button').on('click', textCut);
   $('#text-clear-button').on('click', textClear);
   
-  $('#pagelist-div').css('height', String(pagelistHeight));
-  $('#pagelist-div').on('click', '.pagelist-cell', setPvwFromPagelist);
-  $('#pagelist-div').on('dblclick', '.pagelist-cell', setPgmFromPagelist);
+  $('#pagelist-div')
+    .css('height', String(pagelistHeight))
+    .on('click', '.pagelist-cell', setPvwFromPagelist)
+    .on('dblclick', '.pagelist-cell', setPgmFromPagelist);
+  
+  $(document)
+    .on('keydown', documentKeyDown)
+    .on('keypress', documentKeyPress);
+  $(window).on('beforeunload', function () {
+    return '';
+  });
 });
 
 
