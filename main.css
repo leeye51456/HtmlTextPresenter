@@ -1,9 +1,7 @@
 @charset "utf-8";
 
-* {
-  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-}
 html {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   font-size: 16px;
   line-height: 1.6;
 }
@@ -13,25 +11,41 @@ body {
   margin: 0 auto;
 }
 
-header>h1, section>h1 {
+h1, h2, h3, h4, h5, h6 {
   font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+}
+h1 {
   font-size: 1.5em;
+}
+h2 {
+  font-size: 1.4em;
+}
+h3 {
+  font-size: 1.3em;
+}
+h4 {
+  font-size: 1.2em;
+}
+h5 {
+  font-size: 1.1em;
+}
+h6 {
+  font-size: 1.0em;
+}
+
+header>h1, section>h1 {
   color: #101010;
   border-bottom: 3px solid #e0e0e0;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 header>h2, section>h2 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.4em;
   color: #202020;
   border-bottom: 3px solid #e8e8e8;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 header>h3, section>h3 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.3em;
   color: #303030;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -41,6 +55,9 @@ hr {
   display: none;
 }
 
+input {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+}
 input[type="button"] {
   padding: 3px 15px;
 }
@@ -55,7 +72,6 @@ input[type="file"] {
   width: 300px;
   background-color: #f0f0f0;
 }
-
 
 /************************************************/
 
@@ -132,14 +148,10 @@ input[type="file"] {
 }
 #pgm-div {
   margin: 5px 0 5px 5px;
-  outline: #808080 solid 5px;
+  outline: #808080 solid 5px; /* #e00000 */
 }
-#pvw-div *::selection,
-#pgm-div *::selection {
-  background-color: rgba(0, 0, 0, 0);
-}
-#pvw-div *::-moz-selection,
-#pgm-div *::-moz-selection {
+#pvw-div *::selection, #pvw-div *::-moz-selection
+#pgm-div *::selection, #pgm-div *::-moz-selection {
   background-color: rgba(0, 0, 0, 0);
 }
 .content-display {
@@ -150,27 +162,23 @@ input[type="file"] {
   text-overflow: ellipsis;
   line-height: 1.2;
 }
-.what-display {
+.what-display, .pagenum-display,
+.pagelist-cell-pagenum {
   position: absolute;
-  left: 0;
   bottom: 0;
   padding: 0 5px;
   font-family: Consolas, monospace;
   font-weight: bold;
   color: #ffffff;
-  text-align: left;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.what-display {
+  left: 0;
+  text-align: left;
+}
 .pagenum-display {
-  position: absolute;
   right: 0;
-  bottom: 0;
-  padding: 0 5px;
-  font-family: Consolas, monospace;
-  font-weight: bold;
-  color: #ffffff;
   text-align: right;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 #pagelist-section {
@@ -245,64 +253,25 @@ input[type="file"] {
   text-overflow: ellipsis;
   line-height: 1.2;
 }
+/* refer to #pvw-div, #pgm-div */
 .pagelist-cell-pagenum {
-  position: absolute;
   right: 0;
-  bottom: 0;
-  padding: 0 5px;
-  font-family: Consolas, monospace;
-  font-weight: bold;
-  color: #ffffff;
   font-size: 1rem;
   text-align: right;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /************************************************/
 
-.content-display h1 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.5em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.content-display h2 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.4em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.content-display h3 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.3em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.content-display h4 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.2em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.content-display h5 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.1em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
+.content-display h1,
+.content-display h2,
+.content-display h3,
+.content-display h4,
+.content-display h5,
 .content-display h6 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.0em;
   color: #ffff00;
   border: none;
   margin: 0;
 }
-
 .content-display code {
   border: none;
   padding: 0;
@@ -310,49 +279,16 @@ input[type="file"] {
 
 /************************************************/
 
-.pagelist-cell-content h1 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.5em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.pagelist-cell-content h2 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.4em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.pagelist-cell-content h3 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.3em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.pagelist-cell-content h4 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.2em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
-.pagelist-cell-content h5 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.1em;
-  color: #ffff00;
-  border: none;
-  margin: 0;
-}
+.pagelist-cell-content h1,
+.pagelist-cell-content h2,
+.pagelist-cell-content h3,
+.pagelist-cell-content h4,
+.pagelist-cell-content h5,
 .pagelist-cell-content h6 {
-  font-family: 나눔스퀘어OTF, 나눔스퀘어, 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  font-size: 1.0em;
   color: #ffff00;
   border: none;
   margin: 0;
 }
-
 .pagelist-cell-content code {
   border: none;
   padding: 0;
