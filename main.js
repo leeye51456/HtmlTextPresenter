@@ -203,13 +203,19 @@ function fileLoad() {
     var
       fileForm = document.getElementById('select-file'),
       fr = new window.FileReader(),
-      encoding = $('#encoding-text').val();
+      encoding = $('#encoding-text').val(),
+      pf = navigator.platform,
+      lang = navigator.language;
     if (fileForm.files.length !== 1) {
       alert('텍스트 파일이 선택되지 않았습니다.');
       return;
     }
     if (!encoding) {
-      encoding = 'euc-kr';
+      if (pf.match(/win/i) !== null && lang === 'ko') {
+        encoding = 'euc-kr';
+      } else {
+        encoding = 'utf-8';
+      }
     }
     $('#pgm-div').find('.pagenum-display').html('');
     fr.onload = readTextFile;
@@ -361,6 +367,7 @@ function wndInit() {
       $('#pgm-div').css('outline-color', '');
       pgmControl.setPageNumber(0);
       textClear();
+      $(wnd).off();
     });
 }
 
