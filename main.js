@@ -232,6 +232,14 @@ function pageNumZeroFilter() {
     return pageNum;
   }
 }
+function textCutBtnClick() {
+  if (keyboardControl.getLog()) {
+    pvwControl.setPageNumber(pageNumZeroFilter());
+    updatePvw();
+  } else {
+    textCut();
+  }
+}
 function documentKeyDown(e) {
   if ($(':focus').attr('id') !== 'encoding-text') {
     var st = $('#pagelist-div').scrollTop();
@@ -401,7 +409,7 @@ $(document).ready(function () {
   
   $('#output-section').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
   
-  $('#text-cut-button').on('click', textCut);
+  $('#text-cut-button').on('click', textCutBtnClick);
   $('#text-clear-button').on('click', textClear);
   
   $('#pagelist-div')
