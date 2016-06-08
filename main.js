@@ -52,10 +52,12 @@ var pgmControl = (function () {
       return this.pageNumber;
     },
     setPageNumber: function (pageNum) {
-      if (pageNum < textArray.length) {
-        return (this.pageNumber = pageNum);
+      if (pageNum >= textArray.length) {
+        return textArray.length - 1;
+      } else if (pageNum < 0) {
+        return 0;
       }
-      return textArray.length - 1;
+      return (this.pageNumber = pageNum);
     }
   };
 }());
@@ -67,10 +69,12 @@ var pvwControl = (function () {
       return this.pageNumber;
     },
     setPageNumber: function (pageNum) {
-      if (pageNum < textArray.length) {
-        return (this.pageNumber = pageNum);
+      if (pageNum >= textArray.length) {
+        return textArray.length - 1;
+      } else if (pageNum < 1) {
+        return 1;
       }
-      return textArray.length - 1;
+      return (this.pageNumber = pageNum);
     }
   };
 }());
