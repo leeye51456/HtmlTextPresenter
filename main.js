@@ -381,10 +381,18 @@ function setPgmFromPagelist(e) {
   }
 }
 
+function afterResize() {
+  var pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
+  $('#pagelist-div')
+    .css('height', String(pagelistHeight));
+}
+
 
 // event listeners
 $(document).ready(function () {
-  var pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
+  var
+    timer,
+    pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
   
   $('#window-button').on('click', wndInit);
   
@@ -406,6 +414,11 @@ $(document).ready(function () {
     .on('keypress', documentKeyPress);
   $(window).on('beforeunload', function () {
     return '';
+  });
+  $(window).on('resize', function () {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(afterResize, 200);
+    console.log(timer);
   });
 });
 
