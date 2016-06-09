@@ -141,7 +141,29 @@ function textCut() {
     updatePvw();
   }
 }
-function textClear() {
+function pageNumZeroFilter() {
+  var
+    pageNum = +keyboardControl.clearLog(),
+    len = textArray.length;
+  if (pageNum === 0) {
+    return pvwControl.getPageNumber() - 1;
+  } else if (pageNum < 1) {
+    return 1;
+  } else {
+    return pageNum;
+  }
+}
+function textCutBtnClick(e) {
+  $(e.target).trigger('blur');
+  if (keyboardControl.getLog()) {
+    pvwControl.setPageNumber(pageNumZeroFilter());
+    updatePvw();
+  } else {
+    textCut();
+  }
+}
+function textClear(e) {
+  $(e.target).trigger('blur');
   if (wnd && !wnd.closed) {
     pgmControl.setPageNumber(0);
     $(wnd.document)
@@ -202,7 +224,8 @@ function readTextFile(e) {
   }
 }
 
-function fileLoad() {
+function fileLoad(e) {
+  $(e.target).trigger('blur');
   try {
     var
       fileForm = document.getElementById('select-file'),
@@ -230,26 +253,6 @@ function fileLoad() {
   return;
 }
 
-function pageNumZeroFilter() {
-  var
-    pageNum = +keyboardControl.clearLog(),
-    len = textArray.length;
-  if (pageNum === 0) {
-    return pvwControl.getPageNumber() - 1;
-  } else if (pageNum < 1) {
-    return 1;
-  } else {
-    return pageNum;
-  }
-}
-function textCutBtnClick() {
-  if (keyboardControl.getLog()) {
-    pvwControl.setPageNumber(pageNumZeroFilter());
-    updatePvw();
-  } else {
-    textCut();
-  }
-}
 function documentKeyDown(e) {
   if ($(':focus').attr('id') !== 'encoding-text') {
     var st = $('#pagelist-div').scrollTop();
@@ -329,7 +332,8 @@ function documentKeyPress(e) {
   }
 }
 
-function wndInit() {
+function wndInit(e) {
+  $(e.target).trigger('blur');
   if (wnd && !wnd.closed && confirm('송출 창을 닫을까요?')) {
     wnd.close();
     return;
