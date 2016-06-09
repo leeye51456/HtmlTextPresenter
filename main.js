@@ -244,7 +244,7 @@ function fileLoad(e) {
       return;
     }
     if (!encoding) {
-      if (pf.match(/win/i) !== null && lang === 'ko') {
+      if (pf.match(/win/i) !== null && lang.match(/ko/i) !== null) {
         encoding = 'euc-kr';
       } else {
         encoding = 'utf-8';
