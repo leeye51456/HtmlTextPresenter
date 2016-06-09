@@ -154,7 +154,9 @@ function pageNumZeroFilter() {
   }
 }
 function textCutBtnClick(e) {
-  $(e.target).trigger('blur');
+  if (e) {
+    $(e.target).trigger('blur');
+  }
   if (keyboardControl.getLog()) {
     pvwControl.setPageNumber(pageNumZeroFilter());
     updatePvw();
@@ -163,7 +165,9 @@ function textCutBtnClick(e) {
   }
 }
 function textClear(e) {
-  $(e.target).trigger('blur');
+  if (e) {
+    $(e.target).trigger('blur');
+  }
   if (wnd && !wnd.closed) {
     pgmControl.setPageNumber(0);
     $(wnd.document)
@@ -216,7 +220,7 @@ function readTextFile(e) {
       .replace(/(\*|_)(.+?)\1/g, '<em>$2</em>')
       .replace(/`(.+?)`/g, '<code>$1</code>');
   }
-  $('#last-page-label').text('/' + (textArrayLength));
+  $('#last-page-label').text('/' + (textArrayLength - 1));
   updatePagelistHtml();
   if (wnd && !wnd.closed) {
     pvwControl.setPageNumber(1);
@@ -225,7 +229,9 @@ function readTextFile(e) {
 }
 
 function fileLoad(e) {
-  $(e.target).trigger('blur');
+  if (e) {
+    $(e.target).trigger('blur');
+  }
   try {
     var
       fileForm = document.getElementById('select-file'),
@@ -333,7 +339,9 @@ function documentKeyPress(e) {
 }
 
 function wndInit(e) {
-  $(e.target).trigger('blur');
+  if (e) {
+    $(e.target).trigger('blur');
+  }
   if (wnd && !wnd.closed && confirm('송출 창을 닫을까요?')) {
     wnd.close();
     return;
