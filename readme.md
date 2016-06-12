@@ -1,11 +1,11 @@
 # HtmlTextPresenter
 
-웹 브라우저를 이용하여 간단한 텍스트를 송출하는 도구입니다. 아래 내용은 4.0-dev 버전 기준으로 작성되었습니다.
+웹 브라우저를 이용하여 간단한 텍스트를 송출하는 도구입니다. 아래 내용은 4.0.0.160612 버전 기준으로 작성되었습니다.
 
 ## 사용법
 
 1. `HtmlTextPresenter.html`을 웹 브라우저로 실행합니다.
-  - 가능하면 최신 버전의 웹 브라우저로 실행하여 주십시오. 자바스크립트 FileReader 객체를 지원하는 데스크톱 웹 브라우저(Firefox 3.6, Chrome 7, Internet Explorer 10, Opera 12.02, Safari 6.0.2 이상)에서만 정상 작동합니다.
+  - 가능하면 최신 버전의 웹 브라우저로 실행하십시오. 자바스크립트 FileReader 객체를 지원하는 데스크톱 웹 브라우저(Firefox 3.6, Chrome 7, Internet Explorer 10, Opera 12.02, Safari 6.0.2 이상)에서만 정상 작동합니다.
   - 정상 작동 확인한 사용 환경
     - Chrome 51 (Windows 10.0.10586, 64-bit)
   - 오작동 확인한 사용 환경
