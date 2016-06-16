@@ -7,10 +7,6 @@ html {
   overflow: hidden;
   font-weight: bold;
 }
-html::selection,
-html::-moz-selection {
-  background-color: rgba(0, 0, 0, 0);
-}
 
 body {
   background-color: #000000;
@@ -63,6 +59,12 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#text-section *::selection {
+  background-color: rgba(0, 0, 0, 0);
+}
+#text-section *::-moz-selection {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 #text-div {
