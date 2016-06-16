@@ -210,12 +210,12 @@ function readTextFile(e) {
     textArray[i] = textArray[i]
       .replace(/^(<br>)+/, '')
       .replace(/(<br>)+$/, '')
-      .replace(/^###### *(.*) *#* *$/gm, '<h6>$1</h6>')
-      .replace(/^##### *(.*) *#* *$/gm, '<h5>$1</h5>')
-      .replace(/^#### *(.*) *#* *$/gm, '<h4>$1</h4>')
-      .replace(/^### *(.*) *#* *$/gm, '<h3>$1</h3>')
-      .replace(/^## *(.*) *#* *$/gm, '<h2>$1</h2>')
-      .replace(/^# *(.*) *#* *$/gm, '<h1>$1</h1>')
+      .replace(/^###### *(.*?) *#* *$/gm, '<h6>$1</h6>')
+      .replace(/^##### *(.*?) *#* *$/gm, '<h5>$1</h5>')
+      .replace(/^#### *(.*?) *#* *$/gm, '<h4>$1</h4>')
+      .replace(/^### *(.*?) *#* *$/gm, '<h3>$1</h3>')
+      .replace(/^## *(.*?) *#* *$/gm, '<h2>$1</h2>')
+      .replace(/^# *(.*?) *#* *$/gm, '<h1>$1</h1>')
       .replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
       .replace(/(\*|_)(.+?)\1/g, '<em>$2</em>')
       .replace(/`(.+?)`/g, '<code>$1</code>');
