@@ -201,6 +201,10 @@ function readTextFile(e) {
     .replace(/^\n+/g, '')
     .replace(/\n+$/g, '')
     .replace(/&(?!(amp;|nbsp;|#\d+;|#x[0-9a-f]+;))/gi, '&amp;')
+    .replace(/\\#/g, '&#35;')
+    .replace(/\\\*/g, '&#42;')
+    .replace(/\\_/g, '&#95;')
+    .replace(/\\`/g, '&#96;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/\n/g, '<br>');
