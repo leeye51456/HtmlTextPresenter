@@ -59,7 +59,7 @@ input {
   font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
 }
 input[type="button"] {
-  padding: 3px 15px;
+  padding: 3px 10px;
 }
 input[type="number"] {
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
@@ -85,8 +85,8 @@ input[type="file"] {
 }
 
 #file-section {
-  float: left;
-  width: 50%;
+  float: right;
+  margin-bottom: 5px;
 }
 #encoding-text {
   padding: 3px;
@@ -94,10 +94,40 @@ input[type="file"] {
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
 }
 
+#setting-section {
+  margin-left: 515px;
+  font-size: 0.85em;
+}
+#setting-section>div {
+  margin-top: 5px;
+}
+#align-table {
+  border: 1px solid #000000;
+  border-spacing: 0;
+}
+#align-table td {
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000000;
+  text-align: center;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+#align-table td:hover {
+  background-color: #e0f0ff;
+}
+#align-table td:active {
+  background-color: #d0e8ff;
+}
+td.align-selected {
+  background-color: #d0e8ff;
+}
+
 #output-section {
   float: left;
+  margin-right: 5px;
   width: 50%;
-  text-align: right;
 }
 #select-page-label {
   display: inline-block;
@@ -121,7 +151,7 @@ input[type="file"] {
   font-weight: bold;
 }
 
-#display-section {
+#display-div {
   clear: both;
   display: flex;
   padding: 5px;
