@@ -342,6 +342,24 @@ function documentKeyPress(e) {
   }
 }
 
+function wndTextAlign() {
+  var
+    textDiv = $(wnd.document).find('#text-div').removeClass(),
+    align = $('#align-table').find('.align-selected').data('align');
+  if (align[0] === 't') {
+    textDiv.addClass('top');
+  } else if (align[0] === 'b') {
+    textDiv.addClass('bottom');
+  }
+  if (align[1] === 'l') {
+    textDiv.addClass('left');
+  } else if (align[1] === 'c') {
+    textDiv.addClass('center');
+  } else if (align[1] === 'r') {
+    textDiv.addClass('right');
+  }
+}
+
 function wndInit(e) {
   if (e) {
     $(e.target).trigger('blur');
@@ -361,10 +379,11 @@ function wndInit(e) {
       '</head>' +
       '<body>' +
       '<section id="text-section">' +
-      '<div id="text-div"></div>' +
+      '<div id="text-div" class="center"></div>' +
       '</section>' +
       '</body>' +
       '</html>');
+    wndTextAlign();
   } catch (err) {
     if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 다시 띄울까요?')) {
       wnd = window.open('', 'wnd', '');
@@ -395,6 +414,19 @@ function updateKeyboardSettings() {
   var $section = $('#output-section');
   keyboardControl.enabled = $section.find('#use-keyboard').is(':checked');
   keyboardControl.useKeypad = $section.find('#use-keypad').is(':checked');
+}
+
+function changeAlign(e) {
+  var target = $(e.target);
+  target
+    .closest('table')
+    .find('td')
+    .removeClass();
+  target
+    .addClass('align-selected');
+  if (wnd && !wnd.closed) {
+    wndTextAlign();
+  }
 }
 
 function setPvwFromPagelist(e) {
@@ -435,6 +467,7 @@ $(document).ready(function () {
   $('#update-list-button').on('click', fileLoad);
   
   $('#output-section').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
+  $('#align-table').on('click', 'td', changeAlign);
   
   $('#text-cut-button').on('click', textCutBtnClick);
   $('#text-clear-button').on('click', textClear);

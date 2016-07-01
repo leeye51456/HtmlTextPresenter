@@ -68,11 +68,30 @@ code {
 }
 
 #text-div {
+  position: relative;
   color: #ffffff;
+  width: 90vw;
+  /*
+  min-width: 90vw;
   max-width: 90vw;
+  */
   max-height: 90vh;
   padding: 5vh 5vw;
   font-size: 8.75vh;
   line-height: 1.4;
+}
+.top {
+  top: -25vh;
+}
+.bottom {
+  bottom: -25vh;
+}
+.left {
+  text-align: left;
+}
+.center {
   text-align: center;
+}
+.right {
+  text-align: right;
 }
