@@ -411,9 +411,9 @@ function wndInit(e) {
 }
 
 function updateKeyboardSettings() {
-  var $section = $('#output-section');
-  keyboardControl.enabled = $section.find('#use-keyboard').is(':checked');
-  keyboardControl.useKeypad = $section.find('#use-keypad').is(':checked');
+  var $div = $('#setting-keyboard-div');
+  keyboardControl.enabled = $div.find('#use-keyboard').prop('checked');
+  keyboardControl.useKeypad = $div.find('#use-keypad').prop('checked');
 }
 
 function changeAlign(e) {
@@ -466,7 +466,7 @@ $(document).ready(function () {
   $('#select-file').on('change', fileLoad);
   $('#update-list-button').on('click', fileLoad);
   
-  $('#output-section').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
+  $('#setting-keyboard-div').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
   $('#align-table').on('click', 'td', changeAlign);
   
   $('#text-cut-button').on('click', textCutBtnClick);
