@@ -23,9 +23,9 @@
   
   <section id="output-section">
     <div id="control-div">
+      <label id="select-page-label">&nbsp;</label><label id="last-page-label">/</label>
       <input type="button" id="text-cut-button" value="CUT">
       <input type="button" id="text-clear-button" value="CLEAR">
-      <label id="select-page-label">&nbsp;</label><label id="last-page-label">/</label>
     </div>
     <div id="display-div">
       <div id="pvw-div">
@@ -48,18 +48,18 @@
       <option value="utf-16le">
       <option value="utf-16be">
     </datalist>
-    <input type="file" id="select-file" accept=".txt">
-    <input type="text" id="encoding-text" list="encoding-datalist" value="" placeholder="인코딩">
-    <input type="button" id="update-list-button" value="리스트 갱신">
+    <input type="file" id="select-file" accept=".txt"><input type="text" id="encoding-text" list="encoding-datalist" value="" placeholder="인코딩"><input type="button" id="update-list-button" value="리스트 갱신">
   </section>
   
   <section id="setting-section">
     <div id="setting-keyboard-div">
+      <h2>송출 방법</h2>
       <input type="checkbox" id="use-keyboard" checked><label for="use-keyboard">키보드 송출</label>
-      <small>(<input type="checkbox" id="use-keypad" checked><label for="use-keypad">키패드 사용</label>)</small>
+      <br>
+      <small><input type="checkbox" id="use-keypad" checked><label for="use-keypad">키패드 사용</label></small>
     </div>
     <div id="setting-align-div">
-      <label>텍스트 정렬</label>
+      <h2>텍스트 정렬</h2>
       <table id="align-table">
         <tbody>
           <tr>
