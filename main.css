@@ -53,12 +53,6 @@ input {
 input[type="button"] {
   padding: 3px 10px;
 }
-input[type="number"] {
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-  padding: 3px 3px;
-  text-align: right;
-  min-width: 3em;
-}
 input[type="file"] {
   padding: 1px;
   width: 300px;
@@ -119,6 +113,16 @@ input[type="file"] {
 }
 td.align-selected {
   background-color: #d0e8ff;
+}
+#how-many-lines {
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  padding-left: 1px;
+  width: 2.5em;
+}
+#live-text {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+  width: 255px;
+  height: 45px;
 }
 
 #output-section {
