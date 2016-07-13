@@ -13,19 +13,21 @@
   
   <header>
     <h1>
-      <label>H<small>tml</small>T<small>ext</small>P<small>resenter</small></label>
-      <label id="version-label">4.1.0.160704</label>
-      <div id="header-button-div">
-        <input type="button" id="window-button" value="송출 창 띄우기/닫기">
-      </div>
+      <ul class="inline nobullet noindent">
+        <li><label>H<small>tml</small>T<small>ext</small>P<small>resenter</small></label></li>
+        <li><label id="version-label">4.1.0.160704</label></li>
+        <li id="header-button-li"><button id="window-button">송출 창 띄우기/닫기</button></li>
+      </ul>
     </h1>
   </header>
   
   <section id="output-section">
     <div id="control-div">
-      <label id="select-page-label">&nbsp;</label><label id="last-page-label">/</label>
-      <input type="button" id="text-cut-button" value="CUT">
-      <input type="button" id="text-clear-button" value="CLEAR">
+      <ul class="inline nobullet noindent">
+        <li><label id="select-page-label">&nbsp;</label><label id="last-page-label">/</label></li>
+        <li><button id="text-cut-button">CUT</button></li>
+        <li><button id="text-clear-button">CLEAR</button></li>
+      </ul>
     </div>
     <div id="display-div">
       <div id="pvw-div">
@@ -48,15 +50,20 @@
       <option value="utf-16le">
       <option value="utf-16be">
     </datalist>
-    <input type="file" id="select-file" accept=".txt"><input type="text" id="encoding-text" list="encoding-datalist" value="" placeholder="인코딩"><input type="button" id="update-list-button" value="리스트 갱신">
+    <ul class="inline nobullet noindent">
+      <li><input type="file" id="select-file" accept=".txt"></li>
+      <li><input type="text" id="encoding-text" list="encoding-datalist" value="" placeholder="인코딩"></li>
+      <li><button id="update-list-button">리스트 갱신</button></li>
+    </ul>
   </section>
   
   <section id="setting-section">
     <div id="setting-keyboard-div">
       <h2>송출 방법</h2>
-      <input type="checkbox" id="use-keyboard" checked><label for="use-keyboard">키보드 송출</label>
-      <br>
-      <small><input type="checkbox" id="use-keypad" checked><label for="use-keypad">키패드 사용</label></small>
+      <ul class="nobullet noindent">
+        <li><input type="checkbox" id="use-keyboard" checked><label for="use-keyboard">키보드 송출</label></li>
+        <li><small><input type="checkbox" id="use-keypad" checked><label for="use-keypad">키패드 사용</label></small></li>
+      </ul>
     </div>
     <div id="setting-align-div">
       <h2>텍스트 정렬</h2>
@@ -81,12 +88,14 @@
       </table>
     </div>
     <div id="live-div">
-      <h2>텍스트 송출(마지막 2줄) <input type="button" id="live-out" value="송출(Ctrl+Enter)"></h2>
-      <input type="checkbox" id="live-update"><label for="live-update">즉시 업데이트</label>
-      <br>
-      마지막 <input type="number" id="how-many-lines" value="3">줄 송출
-      <br>
-      <textarea id="live-text"></textarea>
+      <ul class="nobullet noindent nolineheight">
+        <li><button id="live-out"><h2>텍스트 송출(Ctrl+Enter)</h2></button></li>
+        <li><textarea id="live-text"></textarea></li>
+        <ul class="inline moreright nobullet noindent">
+          <li>마지막 <input type="number" id="how-many-lines" value="3">줄 송출</li>
+          <li><input type="checkbox" id="live-update"><label for="live-update">즉시 업데이트</label></li>
+        </ul>
+      </ul>
     </div>
   </section>
   

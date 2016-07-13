@@ -47,16 +47,37 @@ hr {
   display: none;
 }
 
-input {
-  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-}
-input[type="button"], button {
+button {
   padding: 3px 10px;
+}
+input, button {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
 }
 input[type="file"] {
   padding: 1px;
   width: 300px;
   background-color: #f0f0f0;
+}
+
+ul.inline>li {
+  display: inline;
+}
+ul.moreright>li {
+  margin-right: 1em;
+}
+ul.nobullet>li {
+  list-style: none;
+}
+ul.noindent {
+  margin: 0;
+  padding: 0;
+}
+ul.nolineheight>li, ul.nolineheight>ul {
+  margin-bottom: 5px;
+  line-height: 0;
+}
+ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
+  margin-bottom: 0;
 }
 
 
@@ -70,7 +91,7 @@ input[type="file"] {
   font-size: 0.85rem;
   font-weight: normal;
 }
-#header-button-div {
+#header-button-li {
   float: right;
 }
 
@@ -227,7 +248,7 @@ td.align-selected {
 #live-text {
   font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
   width: 255px;
-  height: 45px;
+  height: 50px;
 }
 
 
