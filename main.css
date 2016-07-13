@@ -50,7 +50,7 @@ hr {
 input {
   font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
 }
-input[type="button"] {
+input[type="button"], button {
   padding: 3px 10px;
 }
 input[type="file"] {
@@ -59,7 +59,11 @@ input[type="file"] {
   background-color: #f0f0f0;
 }
 
+
 /************************************************/
+
+
+/**** header ****/
 
 #version-label {
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
@@ -70,65 +74,13 @@ input[type="file"] {
   float: right;
 }
 
-#file-section {
-  margin-right: 515px;
-  margin-bottom: 5px;
-}
-#encoding-text {
-  padding: 3px;
-  width: 5.5em;
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-}
 
-#setting-section {
-  margin-right: 515px;
-  font-size: 0.85em;
-}
-#setting-section>div {
-  float: left;
-  margin: 0 5px 5px 0;
-  padding: 5px;
-  background-color: #f8f8f8;
-  border: 2px solid #d8d8d8;
-  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.4);
-}
-#align-table {
-  border: 1px solid #000000;
-  border-spacing: 0;
-}
-#align-table td {
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #000000;
-  text-align: center;
-  font-size: 0.75em;
-  cursor: pointer;
-}
-#align-table td:hover {
-  background-color: #e0f0ff;
-}
-#align-table td:active {
-  background-color: #d0e8ff;
-}
-td.align-selected {
-  background-color: #d0e8ff;
-}
-#how-many-lines {
-  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
-  padding-left: 1px;
-  width: 2.5em;
-}
-#live-text {
-  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
-  width: 255px;
-  height: 45px;
-}
+/**** output-section ****/
 
 #output-section {
   float: right;
-  /*margin-left: 5px;*/
 }
+
 #control-div {
   text-align: right;
 }
@@ -160,7 +112,6 @@ td.align-selected {
   padding: 5px;
   margin-bottom: 5px;
 }
-
 #pvw-div, #pgm-div {
   position: relative;
   display: inline-flex;
@@ -215,6 +166,72 @@ td.align-selected {
   right: 0;
   text-align: right;
 }
+
+
+/**** file-section ****/
+
+#file-section {
+  margin-right: 515px;
+  margin-bottom: 5px;
+}
+#encoding-text {
+  padding: 3px;
+  width: 5.5em;
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+}
+
+
+/**** setting-section ****/
+
+#setting-section {
+  margin-right: 515px;
+  font-size: 0.85em;
+}
+#setting-section>div {
+  float: left;
+  margin: 0 5px 5px 0;
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 2px solid #d8d8d8;
+  box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+#align-table {
+  border: 1px solid #000000;
+  border-spacing: 0;
+}
+#align-table td {
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000000;
+  text-align: center;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+#align-table td:hover {
+  background-color: #e0f0ff;
+}
+#align-table td:active {
+  background-color: #d0e8ff;
+}
+td.align-selected {
+  background-color: #d0e8ff;
+}
+
+#how-many-lines {
+  font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
+  padding-left: 1px;
+  width: 2.5em;
+}
+#live-text {
+  font-family: 나눔바른고딕OTF, 나눔바른고딕, 나눔고딕OTF, 나눔고딕, sans-serif;
+  width: 255px;
+  height: 45px;
+}
+
+
+/**** pagelist-section ****/
 
 #pagelist-section {
   clear: both;
@@ -295,8 +312,8 @@ td.align-selected {
   text-align: right;
 }
 
-/************************************************/
 
+/**** content-display ****/
 .content-display h1,
 .content-display h2,
 .content-display h3,
@@ -312,8 +329,7 @@ td.align-selected {
   padding: 0;
 }
 
-/************************************************/
-
+/**** pagelist-cell-content ****/
 .pagelist-cell-content h1,
 .pagelist-cell-content h2,
 .pagelist-cell-content h3,
