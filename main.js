@@ -193,11 +193,10 @@ function updatePagelistHtml() {
   $('#pagelist-div').html(html);
 }
 
-function readTextFile(e) {
-  var
-    i, textArrayLength,
-    contents = e.target.result
+function textToHtml(src) {
+  return src
     .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
     .replace(/^\n+/g, '')
     .replace(/\n+$/g, '')
     .replace(/&(?!(amp;|nbsp;|#\d+;|#x[0-9a-f]+;))/gi, '&amp;')
@@ -208,21 +207,30 @@ function readTextFile(e) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/\n/g, '<br>');
+}
+function textToMarkdown(src) {
+  return src
+    .replace(/^(<br>)+/, '')
+    .replace(/(<br>)+$/, '')
+    .replace(/^#{6} *(.*?) *#* *$/gm, '<h6>$1</h6>')
+    .replace(/^#{5} *(.*?) *#* *$/gm, '<h5>$1</h5>')
+    .replace(/^#{4} *(.*?) *#* *$/gm, '<h4>$1</h4>')
+    .replace(/^#{3} *(.*?) *#* *$/gm, '<h3>$1</h3>')
+    .replace(/^#{2} *(.*?) *#* *$/gm, '<h2>$1</h2>')
+    .replace(/^#{1} *(.*?) *#* *$/gm, '<h1>$1</h1>')
+    .replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
+    .replace(/(\*|_)(.+?)\1/g, '<em>$2</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
+
+function readTextFile(e) {
+  var
+    i, textArrayLength,
+    contents = textToHtml(e.target.result);
   textArray = [''].concat(contents.split('<br><br>'), ['']);
   textArrayLength = textArray.length;
   for (i = 1; i < textArrayLength; i += 1) {
-    textArray[i] = textArray[i]
-      .replace(/^(<br>)+/, '')
-      .replace(/(<br>)+$/, '')
-      .replace(/^###### *(.*?) *#* *$/gm, '<h6>$1</h6>')
-      .replace(/^##### *(.*?) *#* *$/gm, '<h5>$1</h5>')
-      .replace(/^#### *(.*?) *#* *$/gm, '<h4>$1</h4>')
-      .replace(/^### *(.*?) *#* *$/gm, '<h3>$1</h3>')
-      .replace(/^## *(.*?) *#* *$/gm, '<h2>$1</h2>')
-      .replace(/^# *(.*?) *#* *$/gm, '<h1>$1</h1>')
-      .replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
-      .replace(/(\*|_)(.+?)\1/g, '<em>$2</em>')
-      .replace(/`(.+?)`/g, '<code>$1</code>');
+    textArray[i] = textToMarkdown(textArray[i]);
   }
   $('#last-page-label').text('/' + (textArrayLength - 1));
   updatePagelistHtml();
@@ -454,6 +462,42 @@ function afterResize() {
     .css('height', String(pagelistHeight));
 }
 
+function getLiveText() {
+  var
+    text = $('#live-text').val().split('\n'),
+    sliceStart = text.length - +$('#how-many-lines').val();
+  if (sliceStart < 0) {
+    sliceStart = 0;
+  }
+  return text.slice(sliceStart).join('\n');
+}
+function liveOutClick(e) {
+  var text;
+  if (e) {
+    $(e.target).trigger('blur');
+  }
+  if (wnd && !wnd.closed) {
+    text = textToMarkdown(textToHtml(getLiveText()));
+    pgmControl.setPageNumber(0);
+    $(wnd.document)
+      .find('#text-div')
+      .html(text);
+    $('#pgm-div')
+      .find('.content-display')
+        .html(text)
+        .end()
+      .find('.pagenum-display')
+        .text('LIVE');
+    $('#pagelist-div')
+      .find('.pagelist-cell')
+        .removeClass('pvw-border')
+        .removeClass('pgm-border')
+        .end()
+      .find('[data-page="' + pvwControl.getPageNumber() + '"]')
+        .addClass('pgm-border');
+  }
+}
+
 
 // event listeners
 $(document).ready(function () {
@@ -468,6 +512,7 @@ $(document).ready(function () {
   
   $('#setting-keyboard-div').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
   $('#align-table').on('click', 'td', changeAlign);
+  $('#live-out').on('click', liveOutClick);
   
   $('#text-cut-button').on('click', textCutBtnClick);
   $('#text-clear-button').on('click', textClear);
