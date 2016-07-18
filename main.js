@@ -275,6 +275,11 @@ function documentKeyDown(e) {
   var
     st,
     focusedElementId = $(':focus').attr('id');
+  if (e.ctrlKey && e.keyCode === 13) {
+    $('#live-out').trigger('click');
+    e.preventDefault();
+    return;
+  }
   if (focusedElementId === 'encoding-text') {
     if (e.keyCode === 13) {
       fileLoad();
@@ -471,9 +476,12 @@ function getLiveText() {
   return text.slice(sliceStart).join('\n');
 }
 function liveOutClick(e) {
-  var text;
-  if (e) {
-    $(e.target).trigger('blur');
+  var
+    text,
+    focusedElement = $(':focus'),
+    focusedElementId = focusedElement.attr('id');
+  if (focusedElementId !== 'live-text' && focusedElementId !== 'how-many-lines') {
+    focusedElement.trigger('blur');
   }
   if (wnd && !wnd.closed) {
     text = textToMarkdown(textToHtml(getLiveText()));
@@ -493,7 +501,16 @@ function liveOutClick(e) {
         .removeClass('pgm-border')
         .end()
       .find('[data-page="' + pvwControl.getPageNumber() + '"]')
-        .addClass('pgm-border');
+        .addClass('pvw-border');
+  }
+}
+
+function liveUpdateChange(e) {
+  if ($('#live-update').prop('checked')) {
+    $('#live-div').on('keyup.liveup keydown.liveup change.liveup', '#live-text,#how-many-lines', liveOutClick);
+    liveOutClick();
+  } else {
+    $('#live-div').off('.liveup');
   }
 }
 
@@ -512,6 +529,7 @@ $(document).ready(function () {
   $('#setting-keyboard-div').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
   $('#align-table').on('click', 'td', changeAlign);
   $('#live-out').on('click', liveOutClick);
+  $('#live-update').on('change', liveUpdateChange);
   
   $('#text-cut-button').on('click', textCutBtnClick);
   $('#text-clear-button').on('click', textClear);
