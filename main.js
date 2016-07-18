@@ -272,8 +272,16 @@ function fileLoad(e) {
 }
 
 function documentKeyDown(e) {
-  if ($(':focus').attr('id') !== 'encoding-text') {
-    var st = $('#pagelist-div').scrollTop();
+  var
+    st,
+    focusedElementId = $(':focus').attr('id');
+  if (focusedElementId === 'encoding-text') {
+    if (e.keyCode === 13) {
+      fileLoad();
+      e.preventDefault();
+    }
+  } else if (focusedElementId !== 'live-text' && focusedElementId !== 'how-many-lines') {
+    st = $('#pagelist-div').scrollTop();
     if (e.keyCode === 38) { // Up
       $('#pagelist-div').scrollTop(st - 87);
       e.preventDefault();
@@ -341,14 +349,6 @@ function documentKeyDown(e) {
     }
   }
 }
-function documentKeyPress(e) {
-  if ($(':focus').attr('id') === 'encoding-text') {
-    if (e.keyCode === 13) {
-      fileLoad();
-      e.preventDefault();
-    }
-  }
-}
 
 function wndTextAlign() {
   var
@@ -409,7 +409,6 @@ function wndInit(e) {
   
   $(wnd)
     .on('keydown', documentKeyDown)
-    .on('keypress', documentKeyPress)
     .on('unload', function () {
       $('#pgm-div').css('outline-color', '');
       pgmControl.setPageNumber(0);
@@ -522,9 +521,7 @@ $(document).ready(function () {
     .on('click', '.pagelist-cell', setPvwFromPagelist)
     .on('dblclick', '.pagelist-cell', setPgmFromPagelist);
   
-  $(document)
-    .on('keydown', documentKeyDown)
-    .on('keypress', documentKeyPress);
+  $(document).on('keydown', documentKeyDown);
   $(window).on('beforeunload', function () {
     return '';
   });
