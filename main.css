@@ -59,11 +59,23 @@ input[type="file"] {
   background-color: #f0f0f0;
 }
 
+ul {
+  font-size: 0;
+}
+li {
+  font-size: 1rem;
+}
+header li, section li {
+  font-size: 0.85rem;
+}
 ul.inline>li {
   display: inline;
 }
 ul.moreright>li {
   margin-right: 1em;
+}
+ul.moreright>li:last-child {
+  margin-right: 0;
 }
 ul.nobullet>li {
   list-style: none;
@@ -91,8 +103,10 @@ ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
   font-size: 0.85rem;
   font-weight: normal;
 }
-#header-button-li {
+#window-button {
+  position: relative;
   float: right;
+  top: 0.5em;
 }
 
 
