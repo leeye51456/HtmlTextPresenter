@@ -492,10 +492,10 @@ function liveOutClick(e) {
 
 function liveUpdateChange(e) {
   if ($('#live-update').prop('checked')) {
-    $('#live-div').on('keyup.liveup keydown.liveup change.liveup', '#live-text,#how-many-lines', liveOutClick);
+    $('#live-div').on('input', '#live-text,#how-many-lines', liveOutClick);
     liveOutClick();
   } else {
-    $('#live-div').off('.liveup');
+    $('#live-div').off('input');
   }
 }
 
