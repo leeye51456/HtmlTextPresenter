@@ -154,9 +154,6 @@ function pageNumZeroFilter() {
   }
 }
 function textCutBtnClick(e) {
-  if (e) {
-    $(e.target).trigger('blur');
-  }
   if (keyboardControl.getLog()) {
     pvwControl.setPageNumber(pageNumZeroFilter());
     updatePvw();
@@ -165,9 +162,6 @@ function textCutBtnClick(e) {
   }
 }
 function textClear(e) {
-  if (e) {
-    $(e.target).trigger('blur');
-  }
   if (wnd && !wnd.closed) {
     pgmControl.setPageNumber(0);
     $(wnd.document)
@@ -241,9 +235,6 @@ function readTextFile(e) {
 }
 
 function fileLoad(e) {
-  if (e) {
-    $(e.target).trigger('blur');
-  }
   try {
     var
       fileForm = document.getElementById('select-file'),
@@ -374,9 +365,6 @@ function wndTextAlign() {
 }
 
 function wndInit(e) {
-  if (e) {
-    $(e.target).trigger('blur');
-  }
   if (wnd && !wnd.closed && confirm('송출 창을 닫을까요?')) {
     wnd.close();
     return;
@@ -480,9 +468,6 @@ function liveOutClick(e) {
     text,
     focusedElement = $(':focus'),
     focusedElementId = focusedElement.attr('id');
-  if (focusedElementId !== 'live-text' && focusedElementId !== 'how-many-lines') {
-    focusedElement.trigger('blur');
-  }
   if (wnd && !wnd.closed) {
     text = textToMarkdown(textToHtml(getLiveText()));
     pgmControl.setPageNumber(0);
@@ -514,6 +499,10 @@ function liveUpdateChange(e) {
   }
 }
 
+function blurThis(e) {
+  $(e.target).trigger('blur');
+}
+
 
 // event listeners
 $(document).ready(function () {
@@ -521,18 +510,34 @@ $(document).ready(function () {
     timer,
     pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
   
-  $('#window-button').on('click', wndInit);
+  $('#window-button')
+    .on('click', wndInit)
+    .on('focus', blurThis);
   
-  $('#select-file').on('change', fileLoad);
-  $('#update-list-button').on('click', fileLoad);
+  $('#select-file')
+    .on('change', fileLoad)
+    .on('focus', blurThis);
+  $('#update-list-button')
+    .on('click', fileLoad)
+    .on('focus', blurThis);
   
-  $('#setting-keyboard-div').on('change', 'input[type="checkbox"]', updateKeyboardSettings);
+  $('#setting-keyboard-div')
+    .on('change', 'input[type="checkbox"]', updateKeyboardSettings)
+    .on('focus', 'input[type="checkbox"]', blurThis);
   $('#align-table').on('click', 'td', changeAlign);
-  $('#live-out').on('click', liveOutClick);
-  $('#live-update').on('change', liveUpdateChange);
+  $('#live-out')
+    .on('click', liveOutClick)
+    .on('focus', blurThis);
+  $('#live-update')
+    .on('change', liveUpdateChange)
+    .on('focus', blurThis);
   
-  $('#text-cut-button').on('click', textCutBtnClick);
-  $('#text-clear-button').on('click', textClear);
+  $('#text-cut-button')
+    .on('click', textCutBtnClick)
+    .on('focus', blurThis);
+  $('#text-clear-button')
+    .on('click', textClear)
+    .on('focus', blurThis);
   
   $('#pagelist-div')
     .css('height', String(pagelistHeight))
