@@ -2,7 +2,11 @@
 /*global $, jQuery, alert, confirm */
 'use strict';
 
-var wnd, textArray = [''];
+var
+  wnd,
+  textArray = [''],
+  sessionId = Date.now(),
+  sessionIdShort = sessionId % 86400000;
 
 var keyboardControl = (function () {
   var
@@ -369,13 +373,13 @@ function wndInit(e) {
     wnd.close();
     return;
   }
-  wnd = window.open('', 'wnd', 'scrollbar=no');
+  wnd = window.open('', 'wnd' + sessionId, 'scrollbar=no');
   try {
     wnd.document.write('<!doctype html>' +
       '<html>' +
       '<head>' +
       '<meta charset="utf-8">' +
-      '<title>[송출] HtmlTextPresenter</title>' +
+      '<title>[송출] HtmlTextPresenter (' + sessionIdShort + ')</title>' +
       '<link rel="stylesheet" href="presenter.css" type="text/css">' +
       '</head>' +
       '<body>' +
@@ -386,8 +390,8 @@ function wndInit(e) {
       '</html>');
     wndTextAlign();
   } catch (err) {
-    if (confirm('스위처와 송출 창이 서로 통신할 수 없는 상태입니다.\n송출 창을 다시 띄울까요?')) {
-      wnd = window.open('', 'wnd', '');
+    if (confirm('알 수 없는 이유로 송출 창을 다시 띄워야 합니다.\n송출 창을 다시 띄울까요?')) {
+      wnd = window.open('', 'wnd' + sessionIdShort, '');
       wnd.close();
       wndInit();
     }
@@ -509,6 +513,9 @@ $(document).ready(function () {
   var
     timer,
     pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
+  
+  document.title = 'HtmlTextPresenter (' + sessionIdShort + ')';
+  $('#session-label').text('세션 ' + sessionIdShort);
   
   $('#window-button')
     .on('click', wndInit)

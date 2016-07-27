@@ -98,10 +98,13 @@ ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
 
 /**** header ****/
 
-#version-label {
+#version-label, #session-label {
   font-family: D2Coding, 나눔고딕코딩, Consolas, monospace;
   font-size: 0.85rem;
   font-weight: normal;
+}
+#version-label::before, #session-label::before {
+  content: "/ ";
 }
 #window-button {
   position: relative;
