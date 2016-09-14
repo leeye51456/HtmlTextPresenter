@@ -6,7 +6,8 @@ var
   wnd,
   textArray = [''],
   sessionId = Date.now(),
-  sessionIdShort = sessionId % 86400000;
+  sessionIdShort = sessionId % 86400000,
+  isLiveOutOnAir = false;
 
 var keyboardControl = (function () {
   var
@@ -167,6 +168,9 @@ function textCutBtnClick(e) {
 }
 function textClear(e) {
   if (wnd && !wnd.closed) {
+    isLiveOutOnAir = false;
+    $('#live-update').prop('checked', false);
+    $('#live-div').off('input');
     pgmControl.setPageNumber(0);
     $(wnd.document)
       .find('#text-div')
@@ -391,7 +395,7 @@ function wndInit(e) {
     wndTextAlign();
   } catch (err) {
     if (confirm('알 수 없는 이유로 송출 창을 다시 띄워야 합니다.\n송출 창을 다시 띄울까요?')) {
-      wnd = window.open('', 'wnd' + sessionIdShort, '');
+      wnd = window.open('', 'wnd' + sessionId, '');
       wnd.close();
       wndInit();
     }
@@ -460,7 +464,7 @@ function afterResize() {
 
 function getLiveText() {
   var
-    text = $('#live-text').val().split('\n'),
+    text = $('#live-text').val().trim().split('\n'),
     sliceStart = text.length - +$('#how-many-lines').val();
   if (sliceStart < 0) {
     sliceStart = 0;
@@ -496,9 +500,11 @@ function liveOutClick(e) {
 
 function liveUpdateChange(e) {
   if ($('#live-update').prop('checked')) {
+    isLiveOutOnAir = true;
     $('#live-div').on('input', '#live-text,#how-many-lines', liveOutClick);
     liveOutClick();
   } else {
+    isLiveOutOnAir = false;
     $('#live-div').off('input');
   }
 }
@@ -512,10 +518,11 @@ function blurThis(e) {
 $(document).ready(function () {
   var
     timer,
+    sessionIdHtml = '<small>' + Math.floor(sessionId / 86400000) + '-</small><b>' + (sessionId % 86400000) + '</b>',
     pagelistHeight = $(window).height() - $('#pagelist-div').offset().top - 40;
   
   document.title = 'HtmlTextPresenter (' + sessionIdShort + ')';
-  $('#session-label').text('세션 ' + sessionIdShort);
+  $('#session-label').html('세션 ' + sessionIdHtml);
   
   $('#window-button')
     .on('click', wndInit)
