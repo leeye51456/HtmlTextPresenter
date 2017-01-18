@@ -150,6 +150,9 @@ ul.nolineheight>li:last-child, ul.nolineheight>ul:last-child {
   padding: 5px;
   margin-bottom: 5px;
 }
+#pvw-div.pvw-hidden {
+  visibility: hidden;
+}
 #pvw-div, #pgm-div {
   position: relative;
   display: inline-flex;
@@ -302,6 +305,9 @@ td.align-selected {
   height: 100%;
   color: #808080;
   font-size: 3em;
+}
+#pagelist-div.pvw-hidden > .pvw-border {
+  outline: #808080 solid 4px;
 }
 #pagelist-div > .pvw-border {
   outline: #00a000 solid 4px;

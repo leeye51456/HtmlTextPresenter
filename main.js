@@ -70,6 +70,7 @@ var pgmControl = (function () {
 var pvwControl = (function () {
   var pageNumber = 0;
   return {
+    usePvw: true,
     getPageNumber: function () {
       return this.pageNumber;
     },
@@ -150,10 +151,12 @@ function pageNumZeroFilter() {
   var
     pageNum = +keyboardControl.clearLog(),
     len = textArray.length;
-  if (pageNum === 0) {
-    return pvwControl.getPageNumber() - 1;
-  } else if (pageNum < 1) {
-    return 1;
+  if (pageNum < 1) {
+    if (pvwControl.usePvw) {
+      return pvwControl.getPageNumber() - 1;
+    } else {
+      return pvwControl.getPageNumber() - 2;
+    }
   } else {
     return pageNum;
   }
@@ -161,7 +164,11 @@ function pageNumZeroFilter() {
 function textCutBtnClick(e) {
   if (keyboardControl.getLog()) {
     pvwControl.setPageNumber(pageNumZeroFilter());
-    updatePvw();
+    if (pvwControl.usePvw) {
+      updatePvw();
+    } else {
+      textCut();
+    }
   } else {
     textCut();
   }
@@ -300,8 +307,7 @@ function documentKeyDown(e) {
       if (keyboardControl.useKeypad) {
         if (e.keyCode === 13) { // enter
           if (keyboardControl.getLog()) {
-            pvwControl.setPageNumber(pageNumZeroFilter());
-            updatePvw();
+            textCutBtnClick();
           } else {
             textCut();
           }
@@ -418,12 +424,6 @@ function wndInit(e) {
     });
 }
 
-function updateKeyboardSettings() {
-  var $div = $('#setting-keyboard-div');
-  keyboardControl.enabled = $div.find('#use-keyboard').prop('checked');
-  keyboardControl.useKeypad = $div.find('#use-keypad').prop('checked');
-}
-
 function changeAlign(e) {
   var target = $(e.target);
   target
@@ -447,12 +447,33 @@ function setPvwFromPagelist(e) {
 }
 function setPgmFromPagelist(e) {
   if (wnd && !wnd.closed) {
-    pgmControl.setPageNumber(+(
+    pvwControl.setPageNumber(+(
       $(e.target)
         .closest('.pagelist-cell')
         .data('page')
     ));
     textCut();
+  }
+}
+
+function updateKeyboardSettings() {
+  var $div = $('#setting-keyboard-div');
+  pvwControl.usePvw = $div.find('#use-pvw').prop('checked');
+  keyboardControl.enabled = $div.find('#use-keyboard').prop('checked');
+  keyboardControl.useKeypad = $div.find('#use-keypad').prop('checked');
+  
+  $('#pagelist-div').off('click dblclick', '.pagelist-cell');
+  if (pvwControl.usePvw) {
+    $('#pvw-div').removeClass('pvw-hidden');
+    $('#pagelist-div')
+      .removeClass('pvw-hidden')
+      .on('click', '.pagelist-cell', setPvwFromPagelist)
+      .on('dblclick', '.pagelist-cell', setPgmFromPagelist);
+  } else {
+    $('#pvw-div').addClass('pvw-hidden');
+    $('#pagelist-div')
+      .addClass('pvw-hidden')
+      .on('click', '.pagelist-cell', setPgmFromPagelist);
   }
 }
 
