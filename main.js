@@ -153,9 +153,9 @@ function pageNumZeroFilter() {
     len = textArray.length;
   if (pageNum < 1) {
     if (pvwControl.usePvw) {
-      return pvwControl.getPageNumber() - 1;
-    } else {
-      return pvwControl.getPageNumber() - 2;
+      return +pvwControl.getPageNumber() - 1;
+    } else if (pgmControl.getPageNumber() > 1) {
+      return +pgmControl.getPageNumber() - 1;
     }
   } else {
     return pageNum;
@@ -184,6 +184,18 @@ function textClear(e) {
       .html('');
     updatePgm();
     updatePvw();
+  }
+}
+function neighborPage(direction) {
+  direction = (direction > 0) ? 1 : -1;
+  if (pvwControl.usePvw) {
+    pvwControl.setPageNumber(+pvwControl.getPageNumber() + direction);
+    updatePvw();
+  } else if (direction === 1) {
+    textCut();
+  } else if (direction === -1 && pgmControl.getPageNumber() > 1) {
+    pvwControl.setPageNumber(+pgmControl.getPageNumber() - 1);
+    textCut();
   }
 }
 
@@ -304,33 +316,25 @@ function documentKeyDown(e) {
       return;
     }
     if (textArray.length > 1 && keyboardControl.enabled) {
+      if (e.keyCode === 13) { // enter
+        if (keyboardControl.getLog()) {
+          textCutBtnClick();
+        } else {
+          textCut();
+        }
+      }
       if (keyboardControl.useKeypad) {
-        if (e.keyCode === 13) { // enter
-          if (keyboardControl.getLog()) {
-            textCutBtnClick();
-          } else {
-            textCut();
-          }
-        } else if (e.keyCode >= 96 && e.keyCode <= 105) { // 0-9
+        if (e.keyCode >= 96 && e.keyCode <= 105) { // 0-9
           keyboardControl.addLog(e.keyCode - 96);
         } else if (e.keyCode === 107) { // +
-          pvwControl.setPageNumber(+pvwControl.getPageNumber() + 1);
-          updatePvw();
+          neighborPage(1);
         } else if (e.keyCode === 109) { // -
-          pvwControl.setPageNumber(+pvwControl.getPageNumber() - 1);
-          updatePvw();
+          neighborPage(-1);
         } else if (e.keyCode === 110) { // .
           textClear();
         }
       } else if (!keyboardControl.useKeypad) {
-        if (e.keyCode === 13) { // enter
-          if (keyboardControl.getLog()) {
-            pvwControl.setPageNumber(pageNumZeroFilter());
-            updatePvw();
-          } else {
-            textCut();
-          }
-        } else if (e.keyCode === 77) { // Mm=0
+        if (e.keyCode === 77) { // Mm=0
           keyboardControl.addLog(0);
         } else if (e.keyCode === 74) { // Jj=1
           keyboardControl.addLog(1);
@@ -347,11 +351,9 @@ function documentKeyDown(e) {
         } else if (e.keyCode >= 55 && e.keyCode <= 57) { // 7-9
           keyboardControl.addLog(e.keyCode - 48);
         } else if (e.keyCode === 219) { // [
-          pvwControl.setPageNumber(+pvwControl.getPageNumber() - 1);
-          updatePvw();
+          neighborPage(-1);
         } else if (e.keyCode === 221) { // ]
-          pvwControl.setPageNumber(+pvwControl.getPageNumber() + 1);
-          updatePvw();
+          neighborPage(1);
         } else if (e.keyCode === 190) { // .
           textClear();
         }
